@@ -1,0 +1,41 @@
+.tabs {
+    height: 100%;
+    width: 100%;
+    -webkit-user-select: none;
+}
+
+.tab-items {
+    display: flex;
+    background-color: #353535;
+    height: 3.5%;
+}
+
+.tabs-item {
+    font-weight: bold;
+    padding: 5px 10px;
+    min-width: 50px;
+    text-align: center;
+    border-radius: 8px 8px 0px 0px;
+    color: #616060;
+}
+
+.tabs-item:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.active-tab {
+    background-color: #808080;
+    color: white;
+}
+
+.d-none {
+    visibility: hidden;
+}
+
+.uncorrect-tab {
+    /* background-color: crimson; */
+    color: crimson;
+}
+
+

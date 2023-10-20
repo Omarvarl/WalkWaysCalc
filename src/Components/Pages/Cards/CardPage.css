@@ -1,0 +1,21 @@
+.card-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* flex-wrap: wrap; */
+    background-color: #808080;
+    width: 100%;
+    color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.cards-area {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.btn-area {
+    width: 100px;
+}

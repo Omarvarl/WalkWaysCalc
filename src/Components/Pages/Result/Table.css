@@ -1,0 +1,28 @@
+.table {
+    color: white;
+    width: 100%;
+}
+
+.fiberglass, .joins {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.label {
+    padding: 10px;
+    font-weight: bold;
+    /* background-color: rgb(75, 74, 74); */
+}
+
+.table-header {
+    font-weight: bold;
+    background-color: rgb(96, 96, 96);
+    border-top: 1px solid white;
+    text-align: center;
+}
+
+td {
+    text-align: center;
+    max-width: 180px;
+}

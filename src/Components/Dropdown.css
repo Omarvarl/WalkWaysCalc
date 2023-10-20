@@ -1,0 +1,17 @@
+.dropdown {
+    background-color: rgb(97, 96, 96);
+    color: white;
+    min-width: 100px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.option-var {
+    cursor: pointer;
+}
+
+.drop-options {
+    background-color: #3d3d3d;
+}

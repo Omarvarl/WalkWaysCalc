@@ -1,0 +1,19 @@
+.button-panel {
+    padding-top: 25px;
+    text-align: center;
+    width: 60px;
+    min-height: 100%;
+    background-color: #212421;
+    font-size: 20pt;
+}
+.save-session, .open-session, .download-result {
+    background-color: #212421;
+    color: rgb(97, 96, 96);
+    border: none;
+    margin-bottom: 5px;
+}
+
+.save-session:hover, .open-session:hover, .download-result:hover {
+    color: white;
+    cursor: pointer;
+}

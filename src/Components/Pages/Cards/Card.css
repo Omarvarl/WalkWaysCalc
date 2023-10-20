@@ -1,0 +1,52 @@
+.card {
+    margin: 10px;
+    background-color: #3d3d3d;
+    padding: 5px;
+    box-shadow: 5px 5px 5px #212421;
+    max-height: 270px;
+    border-radius: 10px;
+    width: 260px;
+}
+.name-input, .length-input, .width-input, .quantity-input {
+    background-color: rgb(97, 96, 96);
+    color: white;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.name-input::placeholder, .length-input::placeholder, .width-input::placeholder, .quantity-input::placeholder {
+    color: white;
+    opacity: 0.3;
+}
+
+.name-area, .characther-area {
+    width: 100%;
+    padding: 5px;
+}
+
+.name-area {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.type-area {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.clone-card, .remove-card {
+    margin: 0px 5px;
+    background-color: #3d3d3d;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.clone-card:hover, .remove-card:hover {
+    background-color: grey;
+
+}
+

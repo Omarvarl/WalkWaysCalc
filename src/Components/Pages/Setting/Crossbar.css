@@ -1,0 +1,28 @@
+.crossbar-type {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.crossbar-quantity {
+    display: flex;
+}
+
+.crossbar-type-label, .crossbar-quantity-label {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.crossbar-type-label {
+     margin-top: 10px;
+}
+
+.crossbar-quantuty-input {
+    background-color: rgb(97, 96, 96);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+

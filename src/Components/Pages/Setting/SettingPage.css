@@ -1,0 +1,9 @@
+.setting-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #808080;
+    width: 100%;
+    color: white;
+    overflow-y: scroll;
+}

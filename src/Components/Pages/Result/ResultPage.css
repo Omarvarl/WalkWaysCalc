@@ -1,0 +1,9 @@
+.result-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow-y: scroll;
+    background-color: #808080;
+    width: 100%;
+    color: white;
+}

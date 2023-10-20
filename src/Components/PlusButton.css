@@ -1,0 +1,12 @@
+.plus-btn {
+    position: fixed;
+    right: 35px;
+    color: #808080;
+    height: 40px;
+    margin: 10px;
+
+}
+
+.plus-btn:hover {
+    color: white;
+}

@@ -1,0 +1,21 @@
+.three-beam-type {
+    margin-top: 20px;
+    display: flex;
+}
+
+.filling-beam {
+    display: flex;
+}
+
+.three-beam-quantity {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.three-beam-type-label, .filling-beam-label {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    margin-top: 10px;
+}
+

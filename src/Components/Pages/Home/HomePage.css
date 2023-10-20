@@ -1,0 +1,32 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(97, 96, 96);;
+    color: white;
+}
+
+.clues {
+    display: flex;
+    justify-content: center;
+    margin: 1%;
+    height: 25%;
+}
+
+.arrow {
+    margin: 20px;
+    font-size: 30pt;
+}
+
+.label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+}
+
+.d-none {
+    display: none;
+}

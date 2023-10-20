@@ -1,0 +1,56 @@
+.h-toast {
+    position: absolute;
+    right: 20px;
+    bottom: 55px;
+    width: 400px;
+    height: 180px;
+    background-color: #3d3d3d;
+    border-radius: 10px;
+    font-size: large;
+    animation: h-toast 0.4s ease-in-out;
+
+    opacity: 0.7;
+}
+.toast-headerr {
+    border-bottom: 2px solid red;
+    height: 20%;
+    background-color: #3d3d3d;
+    color: white;
+    border-radius: 10px;
+}
+
+.message {
+    height: 80%;
+}
+
+.toast-headerr, .message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+@keyframes h-toast{
+    from {
+        right: -400px;
+        bottom: 55px
+    }
+    to {
+        right: 20px;
+        bottom: 55px;
+    }
+}
+
+.toast-close {
+    position: absolute;
+    right: 5px;
+    background-color: #3d3d3d;
+    color: white;
+    border: none;
+}
+
+.toast-close:hover {
+    background-color: #808080;
+    color: red;
+}
+
