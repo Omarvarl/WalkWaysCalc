@@ -123,7 +123,25 @@ function ButtonPanel(props) {
     const downloadExcel = () => {
 
         callBackendAPI(props.data)
-        // .then(res => console.log(res))
+        .then(res => res.text()).then(async (res) => {
+
+          const response =  await fetch('http://localhost:5000/download')
+          if (response.status === 200) {
+
+            const blob = await response.blob()
+
+            const downloadUrl = window.URL.createObjectURL(blob)
+            
+            const link = document.createElement('a')
+            link.href = downloadUrl
+            link.download = 'Table.xlsx'
+
+            document.body.appendChild(link)
+            link.click()
+            link.remove()
+          }
+          
+        })
         .catch(err => console.log(err));
     }
 

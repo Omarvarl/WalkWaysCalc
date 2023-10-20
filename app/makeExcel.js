@@ -1,4 +1,4 @@
-const fs = require('fs');
+// const fs = require('fs');
 const ExcelJS = require('exceljs');
 
 module.exports = async function makeExcel(data) {
@@ -29,9 +29,9 @@ module.exports = async function makeExcel(data) {
         setLength(ws)
     })
 
-    await wb.xlsx.writeFile(`./temp/таблица.xlsx`)
+    await wb.xlsx.writeFile(`./temp/Table.xlsx`)
 
-    return 'dflvbln'
+    return `temp/Table.xlsx`
 }
 
 function setWSData(ws, data, rowIndex, quantity) {

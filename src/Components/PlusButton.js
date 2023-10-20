@@ -14,10 +14,10 @@ function PlusButton(props) {
         if (id === 'sp_plus') cardsIndexes = sessionStorage.getItem('stairInitialPatterns')
         if (cardsIndexes) cardsIndexes = cardsIndexes.split(',')
     
-        const cards = cardsIndexes.map( elm => {
-            if (id === 'cardPlus') return JSON.parse(sessionStorage.getItem(`c_${elm}`))
-            if (id === 'bp_plus') return JSON.parse(sessionStorage.getItem(`bp_${elm}`))
-            if (id === 'sp_plus') return JSON.parse(sessionStorage.getItem(`sp_${elm}`))
+        let cards = cardsIndexes.forEach( elm => {
+            if (id === 'cardPlus') cards.push(JSON.parse(sessionStorage.getItem(`c_${elm}`)))
+            if (id === 'bp_plus') cards.push(JSON.parse(sessionStorage.getItem(`bp_${elm}`)))
+            if (id === 'sp_plus') cards.push(JSON.parse(sessionStorage.getItem(`sp_${elm}`)))
         })
     
         const cardsNames = cards.map(elm => elm.name)
