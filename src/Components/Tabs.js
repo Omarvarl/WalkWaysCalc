@@ -1,7 +1,6 @@
 import './Tabs.css'
 
 function Tabs(props) {
-    console.log(props.ids)
     let index = 0
     return (
         <div className="tabs">

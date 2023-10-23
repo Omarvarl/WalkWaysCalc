@@ -11,15 +11,19 @@ function Table(props) {
     const jData = {}
     
     const makeDataObject = (params, data) => {
-
+ 
         let count = 1
         Object.keys(params).forEach(elm => {
+
             if(data[params[elm].type]) {
                 if (props.cardName !== 'Сводная') {
-                    data[params[elm].type].quantity = (Number(data[params[elm].type].quantity) + Number(params[elm].length * params[elm].quantity)).toFixed(3)
-                    data[params[elm].type].totalQuantity = (Number(data[params[elm].type].totalQuantity) + Number(params[elm].length * params[elm].quantity * props.data.quantity)).toFixed(3)
+                    data[params[elm].type].quantity = Number(data[params[elm].type].quantity + params[elm].length * params[elm].quantity).toFixed(3)
+                    data[params[elm].type].mass = Number(data[params[elm].type].mass + params[elm].mass * params[elm].quantity).toFixed(3)
+                    data[params[elm].type].totalQuantity = Number(data[params[elm].type].totalQuantity + params[elm].length * params[elm].quantity * props.data.quantity).toFixed(3)
+                    data[params[elm].type].totalMass = Number(data[params[elm].type].totalMass + params[elm].mass * params[elm].quantity * props.data.quantity).toFixed(3)
                 } else {
-                    data[params[elm].type].totalQuantity += Number((params[elm].length * params[elm].quantity).toFixed(3))
+                    data[params[elm].type].totalQuantity = Number(data[params[elm].type].totalQuantity + (params[elm].length * params[elm].quantity)).toFixed(3)
+                    data[params[elm].type].totalMass = Number(data[params[elm].type].totalMass + params[elm].mass * params[elm].quantity).toFixed(3)
                 }
             } else {
                 data[params[elm].type] = {}
@@ -28,10 +32,14 @@ function Table(props) {
 
                 if (props.cardName !== 'Сводная') {
                     data[params[elm].type].quantity = Number((params[elm].length * params[elm].quantity).toFixed(3))
+                    data[params[elm].type].mass = Number((params[elm].mass * params[elm].quantity).toFixed(3))
                     data[params[elm].type].totalQuantity = Number((data[params[elm].type].quantity * props.data.quantity).toFixed(3))
+                    data[params[elm].type].totalMass = Number((data[params[elm].type].mass * props.data.quantity).toFixed(3))
                 } else {
                     data[params[elm].type].quantity = '-'
-                    data[params[elm].type].totalQuantity = Number((params[elm].length * params[elm].quantity).toFixed(3))
+                    data[params[elm].type].mass = '-'
+                    data[params[elm].type].totalQuantity = Number((params[elm].length).toFixed(3))
+                    data[params[elm].type].totalMass = Number((params[elm].mass).toFixed(3))
                 }
             }
             count++
@@ -41,9 +49,6 @@ function Table(props) {
     makeDataObject(fParams, fData)
 
     makeDataObject(jParams, jData)
-
-
-    // console.log(Object.keys(fParams))
 
     return (
         <div className="bridge-table">
@@ -61,7 +66,9 @@ function Table(props) {
                                         name={elm}
                                         unit={fData[elm].unit}
                                         quantity={fData[elm].quantity}
+                                        mass={fData[elm].mass}
                                         totalQuantity={fData[elm].totalQuantity}
+                                        totalMass={fData[elm].totalMass}
                                     />
                                 )
                             })
@@ -83,7 +90,9 @@ function Table(props) {
                                         name={elm}
                                         unit={jData[elm].unit}
                                         quantity={jData[elm].quantity}
+                                        mass={jData[elm].mass}
                                         totalQuantity={jData[elm].totalQuantity}
+                                        totalMass={jData[elm].totalMass}
                                     />
                                 )
                             })

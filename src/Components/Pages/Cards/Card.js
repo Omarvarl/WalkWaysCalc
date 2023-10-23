@@ -165,7 +165,7 @@ function Card(props) {
 
         if (param === 'pattern') {
             setIPatterns(event.target.value)
-            card.pattern = iPatterns
+            card.pattern = event.target.value
             sessionStorage.setItem(props.id, JSON.stringify(card))
             return
         }
