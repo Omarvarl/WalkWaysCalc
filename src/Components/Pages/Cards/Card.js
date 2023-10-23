@@ -80,7 +80,7 @@ function Card(props) {
                 let cards = sessionStorage.getItem('initialCards').split(',')
                 cards.forEach(elm => {
                     let newCard = JSON.parse(sessionStorage.getItem(`c_${elm}`))
-                    if (newCard.name && newCard.name === event.target.value.trim()) {
+                    if (newCard.name && newCard.name === event.target.value.trim() && newCard.id !== card.id) {
                         props.setToast( {
                             type:'Ошибка',
                             message:'Карточка с таким именем уже существует',
@@ -93,6 +93,67 @@ function Card(props) {
                 })
             }
         }
+
+        if (param === 'length' && card.type === 'Стремянка') {
+            if (event.target.value < 1100) {
+                props.setToast({
+                    type:'Ошибка',
+                    message:'Длина стремянки не может быть меньше 1100 мм'
+                })
+
+                // event.target.value = card.length
+                event.target.value = ''
+                card.length = ''
+                sessionStorage.setItem(props.id, JSON.stringify(card))
+                return
+            }
+        }
+
+        if (param === 'width' && card.type === 'Стремянка') {
+            if (event.target.value < 200) {
+                props.setToast({
+                    type:'Ошибка',
+                    message:'Ширина стремянки не может быть меньше 200 мм'
+                })
+
+                // event.target.value = card.width
+                event.target.value = ''
+                card.width = ''
+                sessionStorage.setItem(props.id, JSON.stringify(card))
+                return
+            }
+        }
+
+        if (param === 'length' && card.type === 'Мосток') {
+            if (event.target.value < 200) {
+                props.setToast({
+                    type:'Ошибка',
+                    message:'Длина мостка не может быть меньше 200 мм'
+                })
+
+                // event.target.value = card.length
+                event.target.value = ''
+                card.length = ''
+                sessionStorage.setItem(props.id, JSON.stringify(card))
+                return
+            }
+        }
+
+        if (param === 'width' && card.type === 'Мосток') {
+            if (event.target.value < 400) {
+                props.setToast({
+                    type:'Ошибка',
+                    message:'Ширина мостка не может быть меньше 400 мм'
+                })
+
+                // event.target.value = card.width
+                event.target.value = ''
+                card.width = ''
+                sessionStorage.setItem(props.id, JSON.stringify(card))
+                return
+            }
+        }
+
         if (param === 'type') {
             setPatterns((event.target.value === 'Мосток') ? bridgePatterns : stairPatterns)
             card.pattern = event.target.value + ' стд.'
@@ -145,7 +206,7 @@ function Card(props) {
                         min={200}
                         max={5000}
                         step={100}
-                        onChange={(event => setParam(event, 'length'))}
+                        onBlur={(event => setParam(event, 'length'))}
                         defaultValue={card.length}
                     />
                 </div>
@@ -157,7 +218,7 @@ function Card(props) {
                         min={200}
                         max={5000}
                         step={100}
-                        onChange={(event => setParam(event, 'width'))}
+                        onBlur={(event => setParam(event, 'width'))}
                         defaultValue={card.width}
                     />
                 </div>
@@ -168,7 +229,7 @@ function Card(props) {
                         placeholder="Количество"
                         min={1}
                         step={1}
-                        onChange={(event => setParam(event, 'quantity'))}
+                        onBlur={(event => setParam(event, 'quantity'))}
                         defaultValue={card.quantity}
                     />
                 </div>
