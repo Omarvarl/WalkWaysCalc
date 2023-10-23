@@ -17,13 +17,13 @@ function Table(props) {
 
             if(data[params[elm].type]) {
                 if (props.cardName !== 'Сводная') {
-                    data[params[elm].type].quantity = Number(data[params[elm].type].quantity + params[elm].length * params[elm].quantity).toFixed(3)
-                    data[params[elm].type].mass = Number(data[params[elm].type].mass + params[elm].mass * params[elm].quantity).toFixed(3)
-                    data[params[elm].type].totalQuantity = Number(data[params[elm].type].totalQuantity + params[elm].length * params[elm].quantity * props.data.quantity).toFixed(3)
-                    data[params[elm].type].totalMass = Number(data[params[elm].type].totalMass + params[elm].mass * params[elm].quantity * props.data.quantity).toFixed(3)
+                    data[params[elm].type].quantity = (Number(data[params[elm].type].quantity) + Number(params[elm].length * params[elm].quantity)).toFixed(3)
+                    data[params[elm].type].mass = (Number(data[params[elm].type].mass) + Number(params[elm].mass * params[elm].quantity)).toFixed(3)
+                    data[params[elm].type].totalQuantity = (Number(data[params[elm].type].totalQuantity) + Number(params[elm].length * params[elm].quantity * props.data.quantity)).toFixed(3)
+                    data[params[elm].type].totalMass = (Number(data[params[elm].type].totalMass) + Number(params[elm].mass * params[elm].quantity * props.data.quantity)).toFixed(3)
                 } else {
-                    data[params[elm].type].totalQuantity = Number(data[params[elm].type].totalQuantity + (params[elm].length * params[elm].quantity)).toFixed(3)
-                    data[params[elm].type].totalMass = Number(data[params[elm].type].totalMass + params[elm].mass * params[elm].quantity).toFixed(3)
+                    data[params[elm].type].totalQuantity = (Number(data[params[elm].type].totalQuantity) + Number(params[elm].length * params[elm].quantity)).toFixed(3)
+                    data[params[elm].type].totalMass = (Number(data[params[elm].type].totalMass) + Number(params[elm].mass * params[elm].quantity)).toFixed(3)
                 }
             } else {
                 data[params[elm].type] = {}

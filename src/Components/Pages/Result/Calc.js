@@ -90,8 +90,8 @@
                             if (!mark) {
                                 index++
                                 total[param][part + index] = structuredClone(result[elm][param][part])
-                                total[param][part + index].length *= Number(total[param][part + index].quantity * result[elm].quantity)
-                                total[param][part + index].mass *= Number(total[param][part + index].quantity * result[elm].quantity)
+                                total[param][part + index].length = Number(total[param][part + index].length * total[param][part + index].quantity * result[elm].quantity)
+                                total[param][part + index].mass = Number(total[param][part + index].mass * total[param][part + index].quantity * result[elm].quantity)
                                 total[param][part + index].quantity = 1
                                 
                             }
