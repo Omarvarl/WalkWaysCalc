@@ -16,7 +16,7 @@ function ResultPage(props) {
     const cardsName = useMemo( () => cards.map(card => card.name), [cards])
     let data = useMemo( () => runCalc(initialCards, cards), [initialCards, cards])
     let activeTab = sessionStorage.getItem('resultActiveTab')
-    if (!activeTab) activeTab = cardsName[0]
+    if (!activeTab) activeTab = 't_0'
 
 
     const [basicActive, setBasicActive] = useState(activeTab);
@@ -47,8 +47,10 @@ function ResultPage(props) {
 
     // console.log(data)
 
+    let count = 0
     const newComponents = Object.keys(data).map(card => {
-        return createElement('div', {className: card}, <Table data={data[card]} cardName={card}/>)
+        count++
+        return createElement('div', {className: card, id:`t_${count - 1}`}, <Table data={data[card]} cardName={card}/>)
     })
 
     const activateBtn = useMemo( () => {
@@ -61,7 +63,7 @@ function ResultPage(props) {
 
 
     const handleBasicClick = (event) => {
-        const value = event.target.innerText
+        const value = event.target.id
 
         if (value === basicActive) {
             return;
@@ -73,11 +75,15 @@ function ResultPage(props) {
 
     };
 
+    const tabsId = initialCards.map(elm => 't_' + elm)
+    tabsId.push(`t_${Number(initialCards[initialCards.length - 1]) + 1}`)
+
 
     return (
         <div className='result-page'>
             <Tabs
                 onClick={handleBasicClick}
+                ids={tabsId}
                 items={cardsName}
                 activeTab={activeTab}
                 pages={newComponents}

@@ -11,15 +11,15 @@ function SettingPage(props) {
   useEffect(() => disable(), [disable])
 
   let activeTab = sessionStorage.getItem('activeTab')
-  if (!activeTab) activeTab = 'Мостки'
-  let currentPage = (activeTab === 'Мостки') ? 'BridgePage' : 'StairPage'
+  if (!activeTab) activeTab = 't_b'
+  let currentPage = (activeTab === 't_b') ? 't_b' : 't_s'
 
   const [basicActive, setBasicActive] = useState(activeTab);
 
   const [tabPage, setTabPage] = useState(currentPage);
 
   const handleBasicClick = (event) => {
-    const value = event.target.innerText
+    const value = event.target.id
 
     if (value === basicActive) {
       return;
@@ -27,13 +27,13 @@ function SettingPage(props) {
 
     setBasicActive(value);
 
-    (value === 'Мостки') ? setTabPage('BridgePage') : setTabPage('StairPage')
+    (value === 't_b') ? setTabPage('t_b') : setTabPage('t_s')
 
     sessionStorage.setItem('activeTab', value)
   }
 
-  const pages = [<PatternsPage className='BridgePage' initial='bridgeInitialPatterns' index='bp_' setToast={props.setToast} />,
-    <PatternsPage className='StairPage' initial='stairInitialPatterns' index='sp_' setToast={props.setToast} />]
+  const pages = [<PatternsPage id='t_b' className='BridgePage' initial='bridgeInitialPatterns' index='bp_' setToast={props.setToast} />,
+    <PatternsPage id='t_s' className='StairPage' initial='stairInitialPatterns' index='sp_' setToast={props.setToast} />]
 
   return (
       <div className='setting-page'>
@@ -43,6 +43,7 @@ function SettingPage(props) {
           activeTab={activeTab}
           pages={pages}
           tabPage={tabPage}
+          ids={['t_b', 't_s']}
         />
       </div>
     )
