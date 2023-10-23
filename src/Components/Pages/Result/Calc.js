@@ -52,6 +52,7 @@
         makeTotal('jData')
 
         function makeTotal(param) {
+            console.log(result)
             Object.keys(result).forEach(elm => {
                 let index = 0
                 Object.keys(result[elm][param]).forEach(part => {
@@ -88,8 +89,8 @@
             })
         }
 
-
         result['Сводная'] = Object.assign(total)
+    
 
         // console.log(result)
 

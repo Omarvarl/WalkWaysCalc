@@ -24,12 +24,6 @@ function BridgePattern(props) {
         if (!pattern[key] && props.id === props.pattern.id) pattern[key] = props.pattern[key]
     }
 
-
-    // if (props.pattern && !pattern.name) {
-    //     pattern.name = props.pattern.name
-    //     // sessionStorage.setItem(props.id, JSON.stringify(pattern))
-    // }
-
     if (props.id === 'bp_0') pattern.name = 'Мосток стд.'
     if (!pattern.railType) pattern.railType = 'Швеллер 62x30x5'
     if (!pattern.standType) pattern.standType = 'Профиль 50x50x6'
