@@ -10,18 +10,6 @@ function HomePage(props) {
 const disable = useMemo(() => props.disableBtnStatus, [props.disableBtnStatus])
 useEffect(() => disable(), [disable])
 
-if (!sessionStorage.getItem('initialCards')) {
-    sessionStorage.setItem('initialCards', [0])
-}
-if (!sessionStorage.getItem('bridgeInitialPatterns')) {
-    sessionStorage.setItem('bridgeInitialPatterns', [0])
-    sessionStorage.setItem('bp_0', {name: 'Мосток стд.', railType: 'Швеллер 62x30x5'})
-}
-
-
-// const bPatterns = sessionStorage.getItem('bridgeInitialPatterns').split(',')
-// const sPatterns = sessionStorage.getItem('stairInitialPatterns').split(',')
-
 const arrow = <div
     className="arrow">
     <FaArrowRightLong />

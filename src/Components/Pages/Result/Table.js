@@ -11,7 +11,7 @@ function Table(props) {
     const jData = {}
     
     const makeDataObject = (params, data) => {
-        console.log(params, data)
+
         let count = 1
         Object.keys(params).forEach(elm => {
             if(data[params[elm].type]) {

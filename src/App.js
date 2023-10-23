@@ -18,7 +18,8 @@ function App() {
       let data = {
         id: 'c_0',
         name: 'Новая карточка',
-        type: 'Мосток'
+        type: 'Мосток',
+        pattern: 'Мосток стд.'
       }
       sessionStorage.setItem('c_0', JSON.stringify(data))
   }

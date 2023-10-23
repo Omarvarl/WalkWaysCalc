@@ -1,12 +1,28 @@
 
 
     const runCalc = (cards, cardsList) => {
+        let bPatterns
+        let sPatterns
 
-        const bPatterns = sessionStorage.getItem('bridgeInitialPatterns').split(',')
-        const sPatterns = sessionStorage.getItem('stairInitialPatterns').split(',')
+        try {
+            bPatterns = sessionStorage.getItem('bridgeInitialPatterns').split(',')
+            sPatterns = sessionStorage.getItem('stairInitialPatterns').split(',')
+        } catch (err) {
+            if (!bPatterns) bPatterns = [0]
+            if (!sPatterns) sPatterns = [0]
+        }
 
-        let bPatternsList = bPatterns.map(elm => JSON.parse(sessionStorage.getItem(`bp_${elm}`)))
-        let sPatternsList = sPatterns.map(elm => JSON.parse(sessionStorage.getItem(`sp_${elm}`)))
+        let bPatternsList
+        let sPatternsList
+
+        try {
+            bPatternsList = bPatterns.map(elm => JSON.parse(sessionStorage.getItem(`bp_${elm}`)))
+            sPatternsList = sPatterns.map(elm => JSON.parse(sessionStorage.getItem(`sp_${elm}`)))
+        } catch (err) {
+            if (!bPatternsList) bPatternsList = [{bp_0: {name: 'Новая карточка'}}]
+            if (!sPatternsList) sPatternsList = [{sp_0: {name: 'Новая карточка'}}]
+        }
+
         const total = {fData: {}, jData: {}}
         const result = {}
 
@@ -17,8 +33,8 @@
             if (!elm.length || elm.quantity === '0') elm.length = 0
 
             let res = {}
-            if (elm.type === 'Мосток') {
 
+            if (elm.type === 'Мосток') {
                 bPatternsList.forEach(pat => {
                     if (pat.name === elm.pattern) {
                         res = bridgeCalc(pat, elm);
@@ -52,13 +68,11 @@
         makeTotal('jData')
 
         function makeTotal(param) {
-            console.log(result)
             Object.keys(result).forEach(elm => {
                 let index = 0
                 Object.keys(result[elm][param]).forEach(part => {
                     
                     if (total[param][part]) {
-                        // console.log(total[param][part])
                         if (total[param][part].type === result[elm][param][part].type) {
                             total[param][part].length += result[elm][param][part].length * result[elm][param][part].quantity * result[elm].quantity
                         } else {

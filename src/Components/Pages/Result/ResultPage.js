@@ -8,9 +8,11 @@ import Table from './Table';
 
 function ResultPage(props) {
 
-    const initialCardsText = sessionStorage.getItem('initialCards')
+    let initialCardsText = sessionStorage.getItem('initialCards')
+    
     const initialCards = useMemo( () => initialCardsText.split(','), [initialCardsText])
-    const cards = useMemo( () => initialCards.map(card => JSON.parse(sessionStorage.getItem(`c_${card}`))), [initialCards])
+    let cards = useMemo( () => initialCards.map(card => JSON.parse(sessionStorage.getItem(`c_${card}`))), [initialCards])
+
     const cardsName = useMemo( () => cards.map(card => card.name), [cards])
     let data = useMemo( () => runCalc(initialCards, cards), [initialCards, cards])
     let activeTab = sessionStorage.getItem('resultActiveTab')
@@ -54,8 +56,8 @@ function ResultPage(props) {
     }, [props.activateDownloadBtn])
 
     useEffect(() => {
-        activateBtn(data)
-    }, [data, activateBtn])
+        if (!uncorrectCards.length) activateBtn(data)
+    }, [data, activateBtn, uncorrectCards])
 
 
     const handleBasicClick = (event) => {

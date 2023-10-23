@@ -34,7 +34,10 @@ function Card(props) {
         card = JSON.parse(sessionStorage.getItem(props.id))
         if (card == null) {
             card = {}
-            if (props.id === 'c_0') card.name = 'Новая карточка 1'
+            if (props.id === 'c_0') {
+                card.name = 'Новая карточка'
+                card.type = 'Мосток'
+            }
         }
     } catch (err) {
         card = {}
@@ -90,18 +93,26 @@ function Card(props) {
                 })
             }
         }
+        if (param === 'type') {
+            setPatterns((event.target.value === 'Мосток') ? bridgePatterns : stairPatterns)
+            card.pattern = event.target.value + ' стд.'
+            card.type = event.target.value
+            setIPatterns(event.target.value + ' стд.')
+            sessionStorage.setItem(props.id, JSON.stringify(card))
+            return
+        }
+
+        if (param === 'pattern') {
+            setIPatterns(event.target.value)
+            card.pattern = iPatterns
+            sessionStorage.setItem(props.id, JSON.stringify(card))
+            return
+        }
 
         card[param] = event.target.value
         sessionStorage.setItem(props.id, JSON.stringify(card))
-        if (param === 'type') {
-            setPatterns((event.target.value === 'Мосток') ? bridgePatterns : stairPatterns)
-            card.pattern = patterns[0]
-            setIPatterns(patterns[0])
-            sessionStorage.setItem(props.id, JSON.stringify(card))
-        }
-        if (param === 'pattern') {
-            setIPatterns(event.target.value)
-        }
+
+
     }
 
     if (!card.type) {
