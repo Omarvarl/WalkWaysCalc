@@ -13,15 +13,18 @@ function PlusButton(props) {
         if (id === 'bp_plus') cardsIndexes = sessionStorage.getItem('bridgeInitialPatterns')
         if (id === 'sp_plus') cardsIndexes = sessionStorage.getItem('stairInitialPatterns')
         if (cardsIndexes) cardsIndexes = cardsIndexes.split(',')
-    
+
         const cards = []
+
         cardsIndexes.forEach( elm => {
             if (id === 'cardPlus') cards.push(JSON.parse(sessionStorage.getItem(`c_${elm}`)))
             if (id === 'bp_plus') cards.push(JSON.parse(sessionStorage.getItem(`bp_${elm}`)))
             if (id === 'sp_plus') cards.push(JSON.parse(sessionStorage.getItem(`sp_${elm}`)))
         })
-    
-        const cardsNames = cards.map(elm => elm.name)
+
+        let cardsNames = []
+
+        if (cards[0] != null) cardsNames = cards.map(elm => elm.name)
     
         let name =  `Новая карточка`
     
