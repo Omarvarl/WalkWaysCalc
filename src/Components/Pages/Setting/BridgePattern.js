@@ -1,10 +1,11 @@
 import './Pattern.css'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 import Dropdown from '../../Dropdown'
 import Crossbar from './Crossbar'
 import ThreeBeam from './ThreeBeam'
 import { FiTrash2 } from "react-icons/fi";
+import DrawingChose from './DrawingChose'
 
 function BridgePattern(props) {
     let pattern
@@ -105,6 +106,9 @@ function BridgePattern(props) {
 
     if (!fillingConfig) openFillingConfig()
 
+    const divBlock = useRef(null)
+    let drawing = DrawingChose(500)
+
     return (
         <div className="pattern">
             <div className="pattern-config">
@@ -182,7 +186,11 @@ function BridgePattern(props) {
             </div>
 
             <div className="pattern-drawing">
-                <div className='tmp'>ЭСКИЗ</div>
+                <div ref={divBlock} className="front-drawing">
+                    {
+                        drawing
+                    }
+                </div> 
             </div>
             <button className='remove-pattern' onClick={removePattern} title='Удалить шаблон'>
                 <FiTrash2 />

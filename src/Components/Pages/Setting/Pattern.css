@@ -8,7 +8,8 @@
     box-shadow: 5px 5px 5px #212421;
     border-radius: 10px;
     width: 100%;
-    /* height: 600px; */
+    height: 100%;
+    /* height: 450px; */
 }
 
 .pattern-name {
@@ -61,11 +62,23 @@
     background-color: grey;
 }
 
-.tmp {
+.pattern-drawing {
+    display: flex;
+    align-items: center;
     text-align: center;
     width: 100%;
-    height: 340px;
-    border: 2px dashed white;
+    height: 100%;
+    min-height: 450px;
+}
+
+.front-drawing {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    min-width: 100%;
+    height: 100%;
+    min-height: 450px;
+    padding: 5px;
 }
 
 .section-label {
