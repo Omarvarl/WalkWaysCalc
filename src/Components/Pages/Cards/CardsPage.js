@@ -26,6 +26,16 @@ function CardPage(props) {
 
     const [card, setCard] = useState({})
 
+    const addIndex = (name) => {
+        name += '_1'
+        initialCards.forEach(elm => {
+            if (JSON.parse(sessionStorage.getItem(`c_${elm}`)).name === name) {
+                name = addIndex(name)
+            }
+        })
+        return name
+    }
+
     const addCard = (cardForCopy) => {
         let copyOfCards = Object.assign([], cards);
         copyOfCards.sort((a, b) => a - b)
@@ -33,7 +43,14 @@ function CardPage(props) {
         setCards(copyOfCards)
         sessionStorage.setItem('initialCards', copyOfCards)
 
-        if (cardForCopy.marker === 'copy') cardForCopy.name = cardForCopy.name + '_копия'
+        if (cardForCopy.marker === 'copy') {
+            cardForCopy.name += '_копия'
+            initialCards.forEach(elm => {
+                if (JSON.parse(sessionStorage.getItem(`c_${elm}`)).name === cardForCopy.name) {
+                    cardForCopy.name = addIndex(cardForCopy.name)
+                }
+            })
+        }
         cardForCopy.id = `c_${copyOfCards[copyOfCards.length - 1]}`
         setCard(cardForCopy)
     }
