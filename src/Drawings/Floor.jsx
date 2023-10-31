@@ -1,35 +1,44 @@
-export default function Floor(length1, length2, p1, p2, p3) {
+export default function Floor(standType) {
+    let standWidth = 50
+    let standWidth1 = 50
+    if (standType === 'Профиль 88x58x5') {
+        standWidth = 88
+        standWidth1 = 58
+    }
+
+    let floorsEnds = [750, 1450, 2050]
+    let floors = []
+    let prev = 50
+    let count = 1
+
+    floorsEnds.forEach(elm => {
+        floors.push(
+            <g key={`floor_${count}`}>
+                <path d={`
+                M${prev + standWidth} 1125
+                L${elm} 1125
+                L${elm} 1163
+                L${prev + standWidth} 1163Z
+            `}
+                fill="none" stroke="white" strokeWidth="5"
+                />
+            </g>
+        )
+        count++
+        prev = elm
+    })
 
     return (
         <>
         {/* front------------- */}
-        <path d={`M${p1} 1125L${p1 + length1} 1125Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p1} 1163L${p1 + length1} 1163Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-
-            <path d={`M${p2} 1125L${p2 + length1} 1125Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p2} 1163L${p2 + length1} 1163Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-
-            <path d={`M${p3} 1125L${p3 + length2} 1125Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p3} 1163L${p3 + length2} 1163Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-
-            <path d={`M${p3 + length2} 1125L${p3 + length2} 1163Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-
+            {floors}
             {/* left------ */}
-            <path d={`M2356 1125L3156 1125L3156 1163L2356 1163Z`}
+            <path d={`
+                M${2306 + standWidth1} 1125
+                L${2306 + standWidth1 + 800} 1125
+                L${2306 + standWidth1 + 800} 1163
+                L${2306 + standWidth1} 1163Z
+            `}
                 fill="none" stroke="white" strokeWidth="5"
             />
         </>

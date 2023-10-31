@@ -1,64 +1,139 @@
-export default function Beam(length1, length2, p1, p2, p3) {
+export default function Beam(beamType, standType) {
+    let beamHeight = 150
+    let beamWidth = 50
+    if (beamType === 'Профиль 180x60x8') {
+        beamHeight = 180
+        beamWidth = 60
+    } else if (beamType === 'Швеллер 180x70') {
+        beamHeight = 180
+        beamWidth = 70
+    }
+    let standWidth = 50
+    let standWidth1 = 50
+    if (standType === 'Профиль 88x58x5') {
+        standWidth = 88
+        standWidth1 = 58
+    }
+
+    let beamsEnds = [750, 1450, 2050]
+    let beams = []
+    let count = 1
+    let prev = 50
+    beamsEnds.forEach(elm => {
+        beams.push(<g key={`beam_${count}`}>
+            <path d={`
+                M${prev + standWidth} 1163
+                L${elm} 1163
+                L${elm} ${1163 + beamHeight}
+                L${prev + standWidth} ${1163 + beamHeight}Z
+            `}
+                fill="none" stroke="white" strokeWidth="5"
+            />
+
+            <path d={`
+                M${prev + standWidth} 1173
+                L${elm} 1173Z
+            `}  //  invisible line up
+                fill="none" stroke="white" strokeWidth="3"
+            />
+
+            <path d={`
+                M${prev + standWidth} ${1163 + beamHeight - 9}
+                L${elm} ${1163 + beamHeight - 9}Z
+            `}  //  invisible line down
+                fill="none" stroke="white" strokeWidth="3"
+            />
+
+        </g>)
+        prev = elm
+        count++
+    })
+    let leftView = <g>
+        <path d={`
+            M${2306 + standWidth1} 1172
+            A9 9 -45 0 1 ${2306 + standWidth1 + 9} 1163
+            L${2306 + standWidth1 + beamWidth} 1163
+            L${2306 + standWidth1 + beamWidth} 1169
+            L${2306 + standWidth1 + 9} 1169
+            L${2306 + standWidth1 + 9} ${1163 + beamHeight - 9}
+            L${2306 + standWidth1 + beamWidth} ${1163 + beamHeight - 9}
+            L${2306 + standWidth1 + beamWidth} ${1163 + beamHeight}
+            L${2306 + standWidth1 + 9} ${1163 + beamHeight}
+            A9 9 45 0 1 ${2306 + standWidth1} ${1163 + beamHeight - 9}Z
+        `}
+            fill="none" stroke="white" strokeWidth="6"
+        />
+        <path d={`
+            M${2306 + standWidth1 + 800} 1172
+            A9 9 45 0 1 ${2306 + standWidth1 + 800 - 9} 1163
+            L${2306 + standWidth1 + 800 - beamWidth} 1163
+            L${2306 + standWidth1 + 800 - beamWidth} 1169
+            L${2306 + standWidth1 + 800 - 9} 1169
+            L${2306 + standWidth1 + 800 - 9} ${1163 + beamHeight - 9}
+            L${2306 + standWidth1 + 800 - beamWidth} ${1163 + beamHeight - 9}
+            L${2306 + standWidth1 + 800 - beamWidth} ${1163 + beamHeight}
+            L${2306 + standWidth1 + 800 - 9} ${1163 + beamHeight}
+            A9 9 -45 0 1 ${2306 + standWidth1 + 800} ${1163 + beamHeight - 9}Z
+        `}
+            fill="none" stroke="white" strokeWidth="6"
+        />
+    </g>
+
+    if (beamType === 'Профиль 180x60x8') {
+        leftView = <g>
+            <path d={`
+                M${2306 + standWidth1} 1172
+                A9 9 -45 0 1 ${2306 + standWidth1 + 9} 1163
+                L${2306 + standWidth1 + beamWidth} 1163
+                A9 9 45 0 1 ${2306 + standWidth1 + beamWidth} 1172
+                L${2306 + standWidth1 + beamWidth} ${1163 + beamHeight - 9}
+                A9 9 -45 0 1 ${2306 + standWidth1 + beamWidth - 9} ${1163 + beamHeight}
+                L${2306 + standWidth1 + 9} ${1163 + beamHeight}
+                A9 9 45 0 1 ${2306 + standWidth1} ${1163 + beamHeight - 9}Z
+            `}
+                fill="none" stroke="white" strokeWidth="6"
+            />
+
+            <path d={`
+                M${2306 + standWidth1 + 8} 1171
+                L${2306 + standWidth1 + beamWidth - 8} 1171
+                L${2306 + standWidth1 + beamWidth - 8} ${1163 + beamHeight - 8}
+                L${2306 + standWidth1 + 9} ${1163 + beamHeight - 8}Z
+            `}
+                fill="none" stroke="white" strokeWidth="6"
+            />
+
+            <path d={`
+                M${2306 + 800 + standWidth1 - beamWidth} 1172
+                A9 9 -45 0 1 ${2306 + 800 + standWidth1 + 9  - beamWidth} 1163
+                L${2306 + standWidth1 + beamWidth + 800  - beamWidth} 1163
+                A9 9 45 0 1 ${2306 + 800 + standWidth1} 1172
+                L${2306 + standWidth1  + 800} ${1163 + beamHeight - 9}
+                A9 9 -45 0 1 ${2306 + 800 + standWidth1 - 9} ${1163 + beamHeight}
+                L${2306 + standWidth1 + 9 + 800 - beamWidth} ${1163 + beamHeight}
+                A9 9 45 0 1 ${2306 + 800 + standWidth1  - beamWidth} ${1163 + beamHeight - 9}Z
+            `}
+                fill="none" stroke="white" strokeWidth="6"
+            />
+
+            <path d={`
+                M${2306 + 800 + standWidth1 + 8  - beamWidth} 1171
+                L${2306 + 800 + standWidth1 - 8} 1171
+                L${2306 + 800 + standWidth1 - 8} ${1163 + beamHeight - 8}
+                L${2306 + 800 + standWidth1 + 9  - beamWidth} ${1163 + beamHeight - 8}Z
+            `}
+                fill="none" stroke="white" strokeWidth="6"
+            />
+        </g>
+    }
 
     return (
         <>
-            <path d={`M${p1} 1161L${p1 + length1} 1161Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p1} 1170L${p1 + length1} 1170Z`}
-                fill="none" stroke="white" strokeWidth="2"
-            />
-            <path d={`M${p1} 1311L${p1 + length1} 1311Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p1} 1302L${p1 + length1} 1302Z`}
-                fill="none" stroke="white" strokeWidth="2"
-            />
-
-            <path d={`M${p2} 1161L${p2 + length1} 1161Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p2} 1170L${p2 + length1} 1170Z`}
-                fill="none" stroke="white" strokeWidth="2"
-            />
-            <path d={`M${p2} 1311L${p2 + length1} 1311Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p2} 1302L${p2 + length1} 1302Z`}
-                fill="none" stroke="white" strokeWidth="2"
-            />
-
-            <path d={`M${p3} 1161L${p3 + length2} 1161Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p3} 1170L${p3 + length2} 1170Z`}
-                fill="none" stroke="white" strokeWidth="2"
-            />
-            <path d={`M${p3} 1311L${p3 + length2} 1311Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p3} 1302L${p3 + length2} 1302Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-
-            <path d={`M${p3 + length2} 1311L${p3 + length2} 1161Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-
-            <circle cx={2025} cy={1208} r={13/2}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <circle cx={2025} cy={1268} r={13/2}
-                fill="none" stroke="white" strokeWidth="5"
-            />
+            {/* front--------- */}
+            {beams}
 
             {/* left------ */}
-            <path d={`M2356 1172A9 9 -45 0 1 2365 1163L2406 1163L2406 1169L2365 1169L2365 1307L2406 1307L2406 1313L2365 1313A9 9 45 0 1 2356 1304Z`}
-                fill="none" stroke="white" strokeWidth="6"
-            />
-            <path d={`M3156 1172A9 9 45 0 1 3147 1163L3108 1163L3108 1169L3149 1169L3149 1307L3108 1307L3108 1313L3149 1313A9 9 -45 0 1 3156 1304Z`}
-                fill="none" stroke="white" strokeWidth="6"
-            />
+            {leftView}
         </>
     )
 }

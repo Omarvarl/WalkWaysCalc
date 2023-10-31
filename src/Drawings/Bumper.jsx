@@ -1,34 +1,47 @@
-export default function Bumper(length1, length2, p1, p2, p3) {
-
+export default function Bumper(standType) {
+    let standWidth = 50
+    let standWidth1 = 50
+    if (standType === 'Профиль 88x58x5') {
+        standWidth = 88
+        standWidth1 = 58
+    }
+    let paltesEnds = [750, 1450, 2050 + standWidth / 2]
+    let plates = []
+    let prev = 50
+    let count = 1
+    paltesEnds.forEach(elm => {
+        plates.push(<g key={`plate_${count}`}>
+            <path d={`
+            M${prev + standWidth} 1023
+            L${elm} 1023
+            L${elm} 1123
+            L${prev + standWidth} 1123Z
+        `}
+                fill="none" stroke="white" strokeWidth="5"
+            />
+        </g>)
+        count++
+        prev = elm
+    })
     return (
         <>
-            <path d={`M${p1} 1023L${p1 + length1} 1023Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p1} 1123L${p1 + length1} 1123Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p2} 1023L${p2 + length1} 1023Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p2} 1123L${p2 + length1} 1123Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p3} 1023L${p3 + length2} 1023Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p3} 1123L${p3 + length2} 1123Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
-            <path d={`M${p3 + length2} 1123L${p3 + length2} 1023Z`}
-                fill="none" stroke="white" strokeWidth="5"
-            />
+            {plates}
 
             {/* left------- */}
-            <path d={`M2356 1023L2359 1023L2359 1123L2356 1123Z`}
+            <path d={`
+                M${2306 + standWidth1} 1023
+                L${2306 + standWidth1 + 3} 1023
+                L${2306 + standWidth1 + 3} 1123
+                L${2306 + standWidth1} 1123Z
+            `}
                 fill="none" stroke="white" strokeWidth="5"
             />
-            <path d={`M3153 1023L3156 1023L3156 1123L3153 1123Z`}
+            <path d={`
+                M${2306 + standWidth1 + 797} 1023
+                L${2306 + standWidth1 + 800} 1023
+                L${2306 + standWidth1 + 800} 1123
+                L${2306 + standWidth1 + 797} 1123Z
+            `}
                 fill="none" stroke="white" strokeWidth="5"
             />
         </>

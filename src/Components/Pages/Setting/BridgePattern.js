@@ -43,9 +43,86 @@ function BridgePattern(props) {
         props.removePattern(props.id)
         sessionStorage.removeItem(props.id)
     }
+    const [railType, setRailType] = useState(pattern.railType)
+    const [standType, setStandType] = useState(pattern.standType)
+    const [beamType, setBeamType] = useState(pattern.beamType)
+    const [frameCrossbarType, setFrameCrossbarType] = useState(pattern.frameCrossbarType)
+    const [crossbarType, setCrossbarType] = useState(pattern.crossbarType)
+    const [crossbarQuantity, setCrossbarQuantity] = useState(pattern.crossbarQuantity)
+    const [filling, setFilling] = useState(pattern.fillingType)
 
     //  function for pattern saving with new param
     const setParam = (event, param) => {
+        if (param === 'fillingType') {
+            if (filling !== event.target.value) {
+                setFilling(event.target.value)
+                pattern.crossbarType = 'Профиль 40x40x3'
+                setCrossbarType('Профиль 40x40x3')
+                setFillingConfig()
+            }
+        }
+
+        if (param === 'beamType') {
+            if (beamType !== event.target.value) setBeamType(event.target.value)
+        }
+
+        if (param === 'frameCrossbarType') {
+            if (frameCrossbarType !== event.target.value) setFrameCrossbarType(event.target.value)
+        }
+
+        if (param === 'crossbarType') {
+            if (crossbarType !== event.target.value) {
+                pattern.crossbarType = event.target.value
+                setCrossbarType(event.target.value)
+                setFillingConfig()
+            }
+        }
+
+        if (param === 'crossbarQuantity') {
+            if (event.target.value > 5 || event.target.value < 0) {
+                props.setToast( {
+                    type:'Ошибка',
+                    message:'Количество поперечин не может быть меньше 1 или больше 5',
+                    visibility: {visibility: 'visible'}
+                })
+                event.target.value = pattern.crossbarQuantity
+                sessionStorage.setItem(props.id, JSON.stringify(pattern))
+                return
+            }
+            if (crossbarQuantity !== event.target.value) {
+                pattern.crossbarQuantity = event.target.value
+                setCrossbarQuantity(event.target.value)
+                setFillingConfig()
+            }
+        }
+
+        if (param === 'railType') {
+            if (event.target.value === 'Швеллер 62x30x5' && pattern.standType === 'Профиль 88x58x5' && railType !== event.target.value) {
+                props.setToast( {
+                    type:'Ошибка',
+                    message:'Швеллер 62x30x5 не может быть установлен на профиль 88x58x5',
+                    visibility: {visibility: 'visible'}
+                })
+                event.target.value = pattern.railType
+                sessionStorage.setItem(props.id, JSON.stringify(pattern))
+                return
+            }
+            if (railType !== event.target.value) setRailType(event.target.value)
+        }
+
+        if (param === 'standType') {
+            if (event.target.value === 'Профиль 88x58x5' && pattern.railType === 'Швеллер 62x30x5' && standType !== event.target.value) {
+                props.setToast( {
+                    type:'Ошибка',
+                    message:'Швеллер 62x30x5 не может быть установлен на профиль 88x58x5',
+                    visibility: {visibility: 'visible'}
+                })
+                event.target.value = pattern.standType
+                sessionStorage.setItem(props.id, JSON.stringify(pattern))
+                return
+            }
+            if (standType !== event.target.value) setStandType(event.target.value)
+        }
 
         if (param === 'name') {
             if (!event.target.value) {
@@ -57,7 +134,7 @@ function BridgePattern(props) {
                 event.target.value = pattern.name
                 sessionStorage.setItem(props.id, JSON.stringify(pattern))
                 return
-            } else {
+            } else if (event.target.value !== pattern.name) {
                 let cards = sessionStorage.getItem('bridgeInitialPatterns').split(',')
                 cards.forEach(elm => {
                     let newCard = JSON.parse(sessionStorage.getItem(`bp_${elm}`))
@@ -76,6 +153,7 @@ function BridgePattern(props) {
         }
 
         pattern[param] = event.target.value
+        // console.log(pattern[param])
         sessionStorage.setItem(props.id, JSON.stringify(pattern))
         if (param === 'fillingType') openFillingConfig()
     }
@@ -86,7 +164,7 @@ function BridgePattern(props) {
             setFillingConfig(<Crossbar
                                 onChange={(event) => setParam(event, 'crossbarType')}
                                 defaultValue={pattern.crossbarType}
-                                options={['Профиль 40x40x3', 'Профиль 50x50x6', 'Профиль 32x32x3', 'Трубка круглая d32']}
+                                options={['Профиль 40x40x3', 'Профиль 32x32x3', 'Трубка круглая d32']}
                                 setCrossbarQuantity={(event) => setParam(event, 'crossbarQuantity')}
                                 defaultQuantity={pattern.crossbarQuantity}
                             />)
@@ -94,11 +172,8 @@ function BridgePattern(props) {
         } else if (pattern.fillingType === 'Трехбалка') {
 
             setFillingConfig(<ThreeBeam
-                                onChange={(event) => setParam(event, 'crossbarType')}
-                                defaultValue={pattern.crossbarType}
-                                options={['Профиль 40x40x3', 'Профиль 50x50x6', 'Профиль 32x32x3', 'Трубка круглая d32']}
                                 setFillingBeamType={(event) => setParam(event, 'fillingBeamType')}
-                                fillingOptions={['Профиль 40x40x3', 'Профиль 32x32x3', 'Трубка круглая d32']}
+                                fillingOptions={['Профиль 32x32x3', 'Трубка круглая d32']}
                                 defaultFillingBeam={pattern.fillingBeam}
                             />)
         }
@@ -107,7 +182,15 @@ function BridgePattern(props) {
     if (!fillingConfig) openFillingConfig()
 
     const divBlock = useRef(null)
-    let drawing = DrawingChose(500)
+    let drawing = DrawingChose({
+        railType: railType,
+        standType: standType,
+        beamType: beamType,
+        frameCrossbarType: frameCrossbarType,
+        crossbarType: crossbarType,
+        crossbarQuantity: crossbarQuantity,
+        fillingType: filling
+    })
 
     return (
         <div className="pattern">
@@ -130,7 +213,7 @@ function BridgePattern(props) {
                             title='Тип перил'
                             onChange={(event) => setParam(event, 'railType')}
                             defaultValue={pattern.railType}
-                            options={['Швеллер 62x30x5', 'Профиль 88x58x5', 'Профиль 50x50x6']}
+                            options={['Швеллер 62x30x5', 'Профиль 88x58x5']}
                         />
                     </div>
 

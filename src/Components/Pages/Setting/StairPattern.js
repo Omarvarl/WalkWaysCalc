@@ -1,9 +1,9 @@
 import './Pattern.css'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 import Dropdown from '../../Dropdown'
-import SafeBox from './SafeBox'
 import { FiTrash2 } from "react-icons/fi";
+import StairDrawingChose from './StairDrawingChose'
 
 function StairPattern(props) {
 
@@ -34,18 +34,31 @@ function StairPattern(props) {
 
     sessionStorage.setItem(props.id, JSON.stringify(pattern))
 
-    // console.log(pattern)
-
-    const [stairConfig, setStairConfig] = useState('-1')
-
     //  function for pattern removing
     const removePattern = () => {
         props.removePattern(props.id)
         sessionStorage.removeItem(props.id)
     }
 
-    //  function for pattern saving with new param
+    const [beamType, setBeamType] = useState(pattern.beamType)
+    const [stepType, setStepType] = useState(pattern.stepType)
+    const [stairType, setStairType] = useState(pattern.type)
+
+    //  function for pattern saving with new param 
     const setParam = (event, param) => {
+
+        if (param === 'type') {
+            if (stairType !== event.target.value) setStairType(event.target.value)
+        }
+
+        if (param === 'stairBeamType') {
+            if (beamType !== event.target.value) setBeamType(event.target.value)
+        }
+
+        if (param === 'stepType') {
+            if (stepType !== event.target.value) setStepType(event.target.value)
+        }
+
 
         if (param === 'name') {
             if (!event.target.value) {
@@ -57,7 +70,7 @@ function StairPattern(props) {
                 event.target.value = pattern.name
                 sessionStorage.setItem(props.id, JSON.stringify(pattern))
                 return
-            } else {
+            } else if (event.target.value !== pattern.name) {
                 let cards = sessionStorage.getItem('stairInitialPatterns').split(',')
                 cards.forEach(elm => {
                     let newCard = JSON.parse(sessionStorage.getItem(`sp_${elm}`))
@@ -77,24 +90,14 @@ function StairPattern(props) {
 
         pattern[param] = event.target.value
         sessionStorage.setItem(props.id, JSON.stringify(pattern))
-        if (param === 'type') openStairConfig()
     }
 
-    function openStairConfig() {
-        if (pattern.type === 'Просто стремянка') {
-
-            setStairConfig('')
-
-        } else if (pattern.type === 'С защитным коробом') {
-
-            setStairConfig(<SafeBox
-                                defaultValue={pattern.safeBoxLength}
-                                setSafeBoxLength={(event) => setParam(event, 'safeBoxLength')}
-                            />)
-        }
-    }
-
-    if (stairConfig === '-1') openStairConfig()
+    const divBlock = useRef(null)
+    let drawing = StairDrawingChose({
+        beamType: beamType,
+        stepType: stepType,
+        stairType: stairType
+    })
 
     return (
         <div className="pattern">
@@ -139,15 +142,15 @@ function StairPattern(props) {
                         />
                     </div>
 
-                    <div className="filling-config">
-                        {stairConfig}
-                    </div>
-
                 </div>
             </div>
 
             <div className="pattern-drawing">
-                <div className='tmp'>ЭСКИЗ</div>
+                <div ref={divBlock} className="front-drawing">
+                    {
+                        drawing
+                    }
+                </div> 
             </div>
             <button className='remove-pattern' onClick={removePattern} title='Удалить шаблон'>
                 <FiTrash2 />

@@ -1,5 +1,5 @@
-import Channel62x30x5 from '../../../Drawings/Channel62x30x5.jsx'
-import Stand50x50x6 from '../../../Drawings/Stand50x50x6'
+import Rail from '../../../Drawings/Rail.jsx'
+import Stands from '../../../Drawings/Stands'
 import Crossbar from '../../../Drawings/Crossbar.jsx'
 import Bumper from '../../../Drawings/Bumper.jsx'
 import Beam from '../../../Drawings/Beam.jsx'
@@ -11,27 +11,26 @@ import Floor from '../../../Drawings/Floor.jsx'
 import Corner75x75x6 from '../../../Drawings/Corner75x75x6.jsx'
 
 
-export default function DrawingChose(width) {
-    const rail = Channel62x30x5()
-    const stand = Stand50x50x6(50, [750, 1450])
-    const crossbar = Crossbar(100, 650)
-    const crossbar2 = Crossbar(800, 650)
-    const crossbar3 = Crossbar(1500, 550)
-    const bumper = Bumper(650, 575, 100, 800, 1500)
-    const beam = Beam(650, 550, 100, 800, 1500)
-    const connectingTube = ConnectingTube()
-    const connectingPlate = ConnectingPlate()
-    const joints = Joints(50, [750, 1450])
-    const frameCrossbar = FrameCrossbar()
-    const floor = Floor(650, 550, 100, 800, 1500)
-    const corner = Corner75x75x6()
+export default function DrawingChose(data) {
+    if (!data.crossbarQuantity || data.crossbarQuantity === 0) data.crossbarQuantity = 1
+    const rail = Rail(data.railType, data.standType)
 
-    let result = <svg xmlns="http://www.w3.org/2000/svg" width='100%' height='100%' viewBox='0 0 3300 1500'>
+    const stand = Stands(50, [750, 1450], data.standType, data.railType, data.beamType)
+    const crossbar = Crossbar(data.crossbarType, data.standType, Number(data.crossbarQuantity), data.fillingType)
+    const bumper = Bumper(data.standType)
+    const beam = Beam(data.beamType, data.standType)
+    let connectingTube
+    if (data.standType !== 'Профиль 88x58x5' && data.crossbarType !== 'Трубка круглая d32' && data.crossbarType !== 'Профиль 32x32x3') connectingTube = ConnectingTube(data.standType, Number(data.crossbarQuantity), data.fillingType)
+    const connectingPlate = ConnectingPlate(data.beamType)
+    const joints = Joints(data.standType, data.railType, data.beamType, data.crossbarType, Number(data.crossbarQuantity), data.fillingType)
+    const frameCrossbar = FrameCrossbar(data.frameCrossbarType, data.standType, data.beamType)
+    const floor = Floor(data.standType)
+    const corner = Corner75x75x6(data.standType, data.beamType)
+
+    let result = <svg xmlns="http://www.w3.org/2000/svg" width='100%' height='100%' viewBox='0 0 3320 1400'>
         {rail}
         {stand}
         {crossbar}
-        {crossbar2}
-        {crossbar3}
         {bumper}
         {beam}
         {connectingTube}

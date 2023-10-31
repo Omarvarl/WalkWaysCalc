@@ -25,9 +25,10 @@ function Crossbar(props) {
             <div className="crossbar-quantity">
             <div className="crossbar-quantity-label">Количество поперечин</div>
             <input
+                
                 type="number"
-                min={2}
-                max={10}
+                min={1}
+                max={5}
                 step={1}
                 className="crossbar-quantuty-input"
                 onChange={setCrossbarQuantity}
