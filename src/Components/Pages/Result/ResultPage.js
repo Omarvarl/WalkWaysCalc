@@ -14,7 +14,7 @@ function ResultPage(props) {
     let cards = useMemo( () => initialCards.map(card => JSON.parse(sessionStorage.getItem(`c_${card}`))), [initialCards])
 
     const cardsName = useMemo( () => cards.map(card => card.name), [cards])
-    let data = useMemo( () => runCalc(initialCards, cards), [initialCards, cards])
+    let data = useMemo( () => runCalc(cards), [cards])
     let activeTab = sessionStorage.getItem('resultActiveTab')
     if (!activeTab) activeTab = 't_0'
 

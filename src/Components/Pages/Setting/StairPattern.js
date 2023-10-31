@@ -99,6 +99,8 @@ function StairPattern(props) {
         stairType: stairType
     })
 
+    let dis = (sessionStorage.getItem('stairInitialPatterns').split(',').length > 1) ? false : true
+
     return (
         <div className="pattern">
             <div className="pattern-config">
@@ -152,7 +154,7 @@ function StairPattern(props) {
                     }
                 </div> 
             </div>
-            <button className='remove-pattern' onClick={removePattern} title='Удалить шаблон'>
+            <button className='remove-pattern' onClick={removePattern} title='Удалить шаблон' disabled={dis}>
                 <FiTrash2 />
             </button>
         </div>

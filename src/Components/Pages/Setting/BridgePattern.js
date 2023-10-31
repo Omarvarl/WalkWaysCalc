@@ -192,6 +192,8 @@ function BridgePattern(props) {
         fillingType: filling
     })
 
+    let dis = (sessionStorage.getItem('bridgeInitialPatterns').split(',').length > 1) ? false : true
+
     return (
         <div className="pattern">
             <div className="pattern-config">
@@ -275,7 +277,7 @@ function BridgePattern(props) {
                     }
                 </div> 
             </div>
-            <button className='remove-pattern' onClick={removePattern} title='Удалить шаблон'>
+            <button className='remove-pattern' onClick={removePattern} title='Удалить шаблон' disabled={dis}>
                 <FiTrash2 />
             </button>
         </div>

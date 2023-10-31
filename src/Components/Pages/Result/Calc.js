@@ -1,6 +1,6 @@
 
 
-    const runCalc = (cards, cardsList) => {
+    const runCalc = (cardsList) => {
         let bPatterns
         let sPatterns
 
@@ -23,7 +23,7 @@
             if (!sPatternsList) sPatternsList = [{sp_0: {name: 'Новая карточка'}}]
         }
 
-        const total = {fData: {}, jData: {}}
+        const total = {fData: {}, jData: {}, cData: {}}
         const result = {}
 
         cardsList.forEach(elm => {
@@ -66,6 +66,7 @@
 
         makeTotal('fData')
         makeTotal('jData')
+        makeTotal('cData')
 
         function makeTotal(param) {
             Object.keys(result).forEach(elm => {
@@ -153,7 +154,7 @@
 
             const widthDelta = (pattern.beamType === 'Профиль 180x60x8') ? 120 : 12
             const standWidth  = (pattern.standType === 'Профиль 50x50x6') ? 50 : 88
-            const materialSpec = {fData: {}, jData: {}}
+            const materialSpec = {fData: {}, jData: {}, cData: {}}
 
             materialSpec.type = 'bridge'
             materialSpec.quantity = Number(elm.quantity)
@@ -207,8 +208,8 @@
             }
 
             materialSpec.fData.crossbar = {
-                length: (elm.length - standWidth * (materialSpec.fData.frameCrossbar.quantity + 1)) / (materialSpec.fData.frameCrossbar.quantity + 1) / 1e3,
-                quantity: (materialSpec.fData.frameCrossbar.quantity + 1) * 2 * (pattern.crossbarQuantity) ? pattern.crossbarQuantity : 1,
+                length: (elm.length * 2 - standWidth * materialSpec.fData.stand.quantity) / 1e3,
+                quantity: pattern.crossbarQuantity,
                 type: pattern.crossbarType,
                 unit: 'м/пог',
                 mass: massDefine(pattern.crossbarType, (elm.length - standWidth * (materialSpec.fData.frameCrossbar.quantity + 1)) / (materialSpec.fData.frameCrossbar.quantity + 1) / 1e3)
@@ -228,19 +229,6 @@
                 type: 'Пластина 110x110x5',
                 unit: 'м2',
                 mass: massDefine('Пластина 110x110x5')
-            }
-
-            if (pattern.fillingType === 'Трехбалка') {
-
-                materialSpec.fData.fillingBeam = {
-                    length: 800 / 1e3,
-                    quantity: Math.ceil(materialSpec.fData.crossbar.length / 0.15 * materialSpec.fData.crossbar.quantity),
-                    type: pattern.fillingBeamType,
-                    unit: 'м/пог',
-                    mass: massDefine(pattern.fillingBeamType, 800 / 1e3)
-                }
-
-                materialSpec.fData.crossbar.quantity *= 2
             }
 
             materialSpec.fData.board = {
@@ -333,8 +321,24 @@
 
             materialSpec.jData.crossbarRivet = {
                 length: 1,
-                type: 'Заклепка',
-                quantity: materialSpec.fData.stand.quantity * 7 - 4 + materialSpec.fData.crossbar.quantity * 4 - 4,
+                type: 'Заклепка вытяжная',
+                quantity: (materialSpec.fData.stand.quantity * 5 - 4) * pattern.crossbarQuantity,
+                unit: 'шт',
+                mass: 0.008
+            }
+
+            materialSpec.jData.railRivet = {
+                length: 1,
+                type: 'Заклепка вытяжная',
+                quantity: materialSpec.fData.stand.quantity * 4 - 4,
+                unit: 'шт',
+                mass: 0.008
+            }
+
+            materialSpec.jData.borderRivet = {
+                length: 1,
+                type: 'Заклепка вытяжная',
+                quantity: materialSpec.fData.stand.quantity * 2,
                 unit: 'шт',
                 mass: 0.008
             }
@@ -347,11 +351,144 @@
                 mass: massDefine('Уголок Металлический 140x90x8')
             }
 
+            materialSpec.cData.bBolt = {
+                length: 1,
+                type: 'Болт M12x35',
+                quantity: 4,
+                unit: 'м/пог',
+                mass: 0.045
+            }
+
+            materialSpec.cData.bNut = {
+                length: 1,
+                type: 'Гайка M12',
+                quantity: 4,
+                unit: 'м/пог',
+                mass: 1 / 70
+            }
+
+            materialSpec.cData.bWasher = {
+                length: 1,
+                type: 'Шайба увеличенная 12',
+                quantity: 8,
+                unit: 'шт',
+                mass: 0.022
+            }
+
+            materialSpec.cData.bGrover = {
+                length: 1,
+                type: 'Гровер 12',
+                quantity: 4,
+                unit: 'шт',
+                mass: 0.015
+            }
+
+            materialSpec.cData.rRivet = {
+                length: 1,
+                type: 'Заклепка вытяжная',
+                quantity: 4,
+                unit: 'шт',
+                mass: 0.008
+            }
+
+            materialSpec.cData.cRivet = {
+                length: 1,
+                type: 'Заклепка вытяжная',
+                quantity: 4 * pattern.crossbarQuantity,
+                unit: 'шт',
+                mass: 0.008
+            }
+
+            if (pattern.railType === 'Профиль 88x58x5') {
+                delete materialSpec.jData.railRivet
+                delete materialSpec.cData.rRivet
+
+                materialSpec.jData.railScrew = {
+                    length: 1,
+                    type: 'Винт M8x30',
+                    quantity: materialSpec.fData.stand.quantity * 2,
+                    unit: 'шт',
+                    mass: 0.017
+                }
+
+                materialSpec.cData.cScrew = {
+                    length: 1,
+                    type: 'Винт M8x30',
+                    quantity: 4,
+                    unit: 'шт',
+                    mass: 0.017
+                }
+
+                materialSpec.jData.railThreadRivet = {
+                    length: 1,
+                    type: 'Заклепка резьбовая M8',
+                    quantity: materialSpec.jData.railScrew.quantity + 4,
+                    unit: 'шт',
+                    mass: 0.015
+                }
+            }
+
+            if (pattern.standType === 'Профиль 88x58x5') {
+                delete materialSpec.jData.crossbarRivet
+                delete materialSpec.fData.connectingTube
+                delete materialSpec.cData.cRivet
+
+                materialSpec.jData.standScrew = {
+                    length: 1,
+                    type: 'Винт M8x30',
+                    quantity: materialSpec.fData.stand.quantity * pattern.crossbarQuantity * 2,
+                    unit: 'шт',
+                    mass: 0.017
+                }
+
+                materialSpec.cData.cScrew = {
+                    length: 1,
+                    type: 'Винт M8x30',
+                    quantity: 4,
+                    unit: 'шт',
+                    mass: 0.017
+                }
+
+                materialSpec.jData.standThreadRivet = {
+                    length: 1,
+                    type: 'Заклепка резьбовая M8',
+                    quantity: materialSpec.jData.standScrew.quantity + 4,
+                    unit: 'шт',
+                    mass: 0.015
+                }
+            }
+
+            if (pattern.fillingType === 'Трехбалка') {
+                pattern.crossbarQuantity = 2
+                materialSpec.fData.crossbar.quantity = 2
+                materialSpec.fData.fillingBeam = {
+                    length: 800 / 1e3,
+                    quantity: Math.ceil(materialSpec.fData.crossbar.length / 0.182) / 2,
+                    type: pattern.fillingBeamType,
+                    unit: 'м/пог',
+                    mass: massDefine(pattern.fillingBeamType, 800 / 1e3)
+                }
+ 
+            }
+
+            if (pattern.beamType === 'Швеллер 180x70') {
+                materialSpec.fData.stand.length += 0.03
+            }
+
+            if (pattern.beamType === 'Профиль 180x60x8') {
+                materialSpec.fData.stand.length +=  0.03
+                materialSpec.fData.frameCrossbar.length -= 0.108
+                materialSpec.jData.standBolt.type = 'Болт M12x125'
+                materialSpec.jData.standBolt.mass = 0.125
+                materialSpec.cData.bBolt.type = 'Болт M12x95'
+                materialSpec.cData.bBolt.mass = 0.098
+            }
+
             return materialSpec
         }
 
         function stairCalc(pattern, elm) {
-            const materialSpec = {fData: {}, jData: {}}
+            const materialSpec = {fData: {}, jData: {}, cData: {}}
 
             materialSpec.type = 'stair'
             materialSpec.quantity = Number(elm.quantity)
@@ -398,27 +535,28 @@
                 mass: massDefine('Пластина (заглушка)')
             }
 
-            if (pattern.type === 'С защитным коробом') {
+            if (pattern.type === 'С защитным коробом' && elm.length > 1500) {
+                const safeBoxLength = elm.length - 1500
 
                 materialSpec.fData.safeBoxBeam = {
-                    length: pattern.safeBoxLength / 1e3,
+                    length: safeBoxLength / 1e3,
                     quantity: 3,
                     type: 'Профиль 40x40x3',
                     unit: 'м/пог',
-                    mass: massDefine('Профиль 40x40x3', pattern.safeBoxLength / 1e3)
+                    mass: massDefine('Профиль 40x40x3', safeBoxLength / 1e3)
                 }
 
                 materialSpec.fData.safeBoxBeam1 = {
-                    length: pattern.safeBoxLength / 1e3,
+                    length: safeBoxLength / 1e3,
                     quantity: 2,
                     type: 'Трубка круглая d32',
                     unit: 'м/пог',
-                    mass: massDefine('Трубка круглая d32', pattern.safeBoxLength / 1e3)
+                    mass: massDefine('Трубка круглая d32', safeBoxLength / 1e3)
                 }
 
                 materialSpec.fData.safeBoxBar = {
                     length: 800 / 1e3,
-                    quantity: Math.ceil(pattern.safeBoxLength / 300 + 1),
+                    quantity: Math.ceil(safeBoxLength / 300 + 1),
                     type: 'Профиль 40x40x3',
                     unit: 'м/пог',
                     mass: massDefine('Профиль 40x40x3', 800 / 1e3)
@@ -426,7 +564,7 @@
 
                 materialSpec.fData.safeBoxBar1 = {
                     length: elm.width / 1e3,
-                    quantity: Math.ceil(pattern.safeBoxLength / 600 + 1),
+                    quantity: Math.ceil(safeBoxLength / 600 + 1),
                     type: 'Профиль 40x40x3',
                     unit: 'м/пог',
                     mass: massDefine('Профиль 40x40x3', elm.width / 1e3)
@@ -435,7 +573,7 @@
                 materialSpec.jData.safeBoltBeam = {
                     length: 1,
                     type: 'Болт M8x80',
-                    quantity: materialSpec.fData.safeBoxBar.quantity * 2,
+                    quantity: materialSpec.fData.safeBoxBar.quantity * 2 + 2,
                     unit: 'шт',
                     mass: 0.037
                 }
@@ -519,6 +657,38 @@
                 quantity: materialSpec.jData.nuts.quantity * 2,
                 unit: 'шт',
                 mass: 0.006
+            }
+
+            materialSpec.cData.bBolt = {
+                length: 1,
+                type: 'Болт M12x35',
+                quantity: 2,
+                unit: 'м/пог',
+                mass: 0.045
+            }
+
+            materialSpec.cData.bNut = {
+                length: 1,
+                type: 'Гайка M12',
+                quantity: 2,
+                unit: 'м/пог',
+                mass: 1 / 70
+            }
+
+            materialSpec.cData.bWasher = {
+                length: 1,
+                type: 'Шайба увеличенная 12',
+                quantity: 4,
+                unit: 'шт',
+                mass: 0.022
+            }
+
+            materialSpec.cData.bGrover = {
+                length: 1,
+                type: 'Гровер 12',
+                quantity: 2,
+                unit: 'шт',
+                mass: 0.015
             }
 
             return materialSpec

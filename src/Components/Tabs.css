@@ -8,6 +8,8 @@
     display: flex;
     background-color: #353535;
     height: 3.5%;
+    width: 100%;
+    overflow: hidden;
 }
 
 .tabs-item {
@@ -17,6 +19,7 @@
     text-align: center;
     border-radius: 8px 8px 0px 0px;
     color: #616060;
+    min-width: 150px;
 }
 
 .tabs-item:hover {
@@ -37,5 +40,6 @@
     /* background-color: crimson; */
     color: crimson;
 }
+
 
 

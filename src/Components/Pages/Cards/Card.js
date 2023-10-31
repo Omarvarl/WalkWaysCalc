@@ -95,10 +95,10 @@ function Card(props) {
         }
 
         if (param === 'length' && card.type === 'Стремянка') {
-            if (event.target.value < 1100) {
+            if (event.target.value < 1500) {
                 props.setToast({
                     type:'Ошибка',
-                    message:'Длина стремянки не может быть меньше 1100 мм'
+                    message:'Длина стремянки не может быть меньше 1500 мм'
                 })
 
                 // event.target.value = card.length
@@ -154,6 +154,21 @@ function Card(props) {
             }
         }
 
+        if (param === 'quantity') {
+            if (event.target.value < 1) {
+                props.setToast({
+                    type:'Ошибка',
+                    message:'Количество не может быть меньше 1'
+                })
+
+                // event.target.value = card.width
+                event.target.value = 1
+                card.quantity = 1
+                sessionStorage.setItem(props.id, JSON.stringify(card))
+                return
+            }
+        }
+
         if (param === 'type') {
             setPatterns((event.target.value === 'Мосток') ? bridgePatterns : stairPatterns)
             card.pattern = event.target.value + ' стд.'
@@ -185,6 +200,8 @@ function Card(props) {
         card.pattern = 'Мосток стд.'
         sessionStorage.setItem(props.id, JSON.stringify(card))
     }
+
+    let dis = (sessionStorage.getItem('initialCards').split(',').length > 1) ? false : true
 
     return (
         <div className="card" id={props.id} key={props.id}>
@@ -254,7 +271,7 @@ function Card(props) {
                         />
                     </div>
 
-                    <button className='remove-card' onClick={removeCard} title='Удалить карточку'>
+                    <button className='remove-card' onClick={removeCard} title='Удалить карточку' disabled={dis}>
                         <FiTrash2 />
                     </button>
                 </div>

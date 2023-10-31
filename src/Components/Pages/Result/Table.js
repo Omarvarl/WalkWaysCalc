@@ -6,9 +6,11 @@ function Table(props) {
     // console.log(props)
     const fParams = props.data.fData
     const jParams = props.data.jData
+    const cParams = props.data.cData
 
     const fData = {}
     const jData = {}
+    const cData = {}
     
     const makeDataObject = (params, data) => {
  
@@ -49,6 +51,9 @@ function Table(props) {
     makeDataObject(fParams, fData)
 
     makeDataObject(jParams, jData)
+
+    makeDataObject(cParams, cData)
+
 
     return (
         <div className="bridge-table">
@@ -93,6 +98,30 @@ function Table(props) {
                                         mass={jData[elm].mass}
                                         totalQuantity={jData[elm].totalQuantity}
                                         totalMass={jData[elm].totalMass}
+                                    />
+                                )
+                            })
+                        }
+                    </thead>
+                </table>
+            </section>
+            <section className="connectedJoins">
+                <div className="label">Соединительный крепеж</div>
+                <table className="table">
+                    <thead>
+                        <TableHeader type={'bridge'}/>
+                        {
+                            Object.keys(cData).map(elm => {
+                                return (
+                                    <TableBody
+                                        key={elm}
+                                        number={cData[elm].number}
+                                        name={elm}
+                                        unit={cData[elm].unit}
+                                        quantity={cData[elm].quantity}
+                                        mass={cData[elm].mass}
+                                        totalQuantity={cData[elm].totalQuantity}
+                                        totalMass={cData[elm].totalMass}
                                     />
                                 )
                             })

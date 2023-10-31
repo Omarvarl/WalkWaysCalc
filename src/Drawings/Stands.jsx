@@ -5,7 +5,7 @@ export default function Stands(length, lengths, standType, railType, beamType) {
     let standWidth = 50
     let standWidth1 = 50
     let beamHeight = 150
-    let initX = 6
+
     if (standType === 'Профиль 88x58x5') {
         standWidth = 88
         standWidth1 = 58
