@@ -20,6 +20,8 @@
     border-radius: 8px 8px 0px 0px;
     color: #616060;
     min-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tabs-item:hover {
@@ -39,6 +41,21 @@
 .uncorrect-tab {
     /* background-color: crimson; */
     color: crimson;
+}
+
+.tabs-line {
+    display: flex;
+
+}
+
+.next, .prev {
+    background-color: #353535;
+    border: none;
+    color: #808080;
+}
+
+.next:hover, .prev:hover {
+    color: white;
 }
 
 

@@ -45,8 +45,6 @@ function ResultPage(props) {
         }
     }, [uncorrectCards, setToast])
 
-    // console.log(data)
-
     let count = 0
     const newComponents = Object.keys(data).map(card => {
         count++
@@ -75,16 +73,21 @@ function ResultPage(props) {
 
     };
 
-    const tabsId = initialCards.map(elm => 't_' + elm)
-    tabsId.push(`t_${Number(initialCards[initialCards.length - 1]) + 1}`)
+    // const tabsId = initialCards.map(elm => 't_' + elm)
+    // tabsId.push(`t_${Number(initialCards[initialCards.length - 1]) + 1}`)
+
+    const tabs = cardsName.map((elm, index) => {
+        return {name: elm, id: 't_' + index}
+    })
+    // console.log(tabs)
 
 
     return (
         <div className='result-page'>
             <Tabs
                 onClick={handleBasicClick}
-                ids={tabsId}
-                items={cardsName}
+                // ids={tabsId}
+                items={tabs}
                 activeTab={activeTab}
                 pages={newComponents}
                 tabPage={tabPage}
