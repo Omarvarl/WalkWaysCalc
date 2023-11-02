@@ -1,6 +1,6 @@
 .h-toast {
     position: absolute;
-    right: 20px;
+    right: 0px;
     bottom: 55px;
     width: 400px;
     height: 180px;
@@ -36,7 +36,7 @@
         bottom: 55px
     }
     to {
-        right: 20px;
+        right: 0px;
         bottom: 55px;
     }
 }

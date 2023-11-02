@@ -3,3 +3,7 @@
     border: none;
     color: #808080;
 }
+
+.menu-button:hover {
+    color: white;
+}
