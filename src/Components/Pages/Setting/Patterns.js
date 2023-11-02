@@ -19,6 +19,7 @@ function Patterns(props) {
                     index={props.index}
                     pattern={props.pattern}
                     setToast={props.setToast}
+                    size={props.size}
                 />
                 :
                 <StairPattern
@@ -29,6 +30,7 @@ function Patterns(props) {
                     index={props.index}
                     pattern={props.pattern}
                     setToast={props.setToast}
+                    size={props.size}
                 />
 
                 })

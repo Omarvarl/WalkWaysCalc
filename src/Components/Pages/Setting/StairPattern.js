@@ -1,5 +1,5 @@
 import './Pattern.css'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 
 import Dropdown from '../../Dropdown'
 import { FiTrash2 } from "react-icons/fi";
@@ -92,18 +92,41 @@ function StairPattern(props) {
         sessionStorage.setItem(props.id, JSON.stringify(pattern))
     }
 
-    const divBlock = useRef(null)
-    let drawing = StairDrawingChose({
-        beamType: beamType,
-        stepType: stepType,
-        stairType: stairType
-    })
-
     let dis = (sessionStorage.getItem('stairInitialPatterns').split(',').length > 1) ? false : true
+
+    const size = props.size
+    const styles = {}
+    let drawing = ''
+    const drawingWidth = {width: '50%'}
+    const labelWidth = {}
+    const deleteBtn = [
+        <button
+            className='remove-pattern'
+            onClick={removePattern}
+            title='Удалить шаблон'
+            disabled={dis}>
+            <FiTrash2 />
+        </button>, ''
+    ]
+    if (size === 'small') {
+        styles.flexDirection = 'column'
+        deleteBtn.reverse()
+        drawingWidth.width = '0%'
+        labelWidth.width = '100%'
+    } else {
+        drawing = StairDrawingChose({
+            beamType: beamType,
+            stepType: stepType,
+            stairType: stairType
+        })
+    }
 
     return (
         <div className="pattern">
-            <div className="pattern-config">
+            <div className="pattern-config" style={labelWidth}>
+                <div className="remove-area">
+                    {deleteBtn[1]}
+                </div>
                 <input
                     type="text"
                     className="pattern-name"
@@ -114,7 +137,7 @@ function StairPattern(props) {
 
                 <div className="stair-frame">
 
-                    <div className="stair-beam-type">
+                    <div className="stair-beam-type" style={styles}>
                         <div className="stair-beam-type-label">Тип балок</div>
                         <Dropdown
                             title='Тип балок'
@@ -124,7 +147,7 @@ function StairPattern(props) {
                         />
                     </div>
 
-                    <div className="step-type">
+                    <div className="step-type" style={styles}>
                         <div className="step-type-label">Тип перекладины</div>
                         <Dropdown
                             title='Тип перекладины'
@@ -134,7 +157,7 @@ function StairPattern(props) {
                         />
                     </div>
 
-                    <div className="stair-type">
+                    <div className="stair-type" style={styles}>
                         <div className="stair-type-label">Тип стремянки</div>
                         <Dropdown
                             title='Тип стремянки'
@@ -147,16 +170,12 @@ function StairPattern(props) {
                 </div>
             </div>
 
-            <div className="pattern-drawing">
-                <div ref={divBlock} className="front-drawing">
+            <div className="pattern-drawing" style={drawingWidth}>
                     {
                         drawing
                     }
-                </div> 
             </div>
-            <button className='remove-pattern' onClick={removePattern} title='Удалить шаблон' disabled={dis}>
-                <FiTrash2 />
-            </button>
+            {deleteBtn[0]}
         </div>
     )
 }

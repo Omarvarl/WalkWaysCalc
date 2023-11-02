@@ -1,21 +1,26 @@
 .crossbar-type {
-    margin-top: 20px;
+    /* margin-top: 20px; */
     margin-bottom: 10px;
     display: flex;
+    flex-direction: column;
 }
 
 .crossbar-quantity {
     display: flex;
+    flex-direction: column;
 }
 
 .crossbar-type-label, .crossbar-quantity-label {
     display: flex;
     align-items: center;
-    width: 50%;
+    justify-content: center;
+    margin-top: 10px;
+    white-space: nowrap;
 }
 
 .crossbar-type-label {
-     margin-top: 10px;
+    padding-right: 5px;
+    /* margin-top: 10px; */
 }
 
 .crossbar-quantuty-input {

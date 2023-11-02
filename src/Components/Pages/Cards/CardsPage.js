@@ -62,8 +62,14 @@ function CardPage(props) {
         sessionStorage.setItem('initialCards', copyOfCards)
     }
 
+    const size = props.size
+    const styles = {}
+    if (size === 'small') {
+        styles.flexDirection = 'column'
+    }
+
     return (
-        <div className='card-page'>
+        <div className='card-page' style={styles}>
             <div className="cards-area">
                 <Cards cards={cards} addCard={addCard} removeCard={removeCard} card={card} setToast={props.setToast}></Cards>
             </div>

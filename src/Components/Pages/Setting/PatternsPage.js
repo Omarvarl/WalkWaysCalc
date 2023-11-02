@@ -36,11 +36,24 @@ function PatternsPage(props) {
         setPatterns(copyOfPatterns)
         sessionStorage.setItem(props.initial, copyOfPatterns)
     }
+    const size = props.size
+    let styles = {}
+    if (size === 'small') {
+        styles.flexDirection = 'column'
+    }
 
     return (
-        <div className='patterns-page'>
+        <div className='patterns-page' style={styles}>
             <div className="patterns-area">
-                <Patterns patterns={patterns} addPattern={addPattern} removePattern={removePattern} index={props.index} pattern={pattern} setToast={props.setToast}></Patterns>
+                <Patterns
+                    patterns={patterns}
+                    addPattern={addPattern}
+                    removePattern={removePattern}
+                    index={props.index}
+                    pattern={pattern}
+                    setToast={props.setToast}
+                    size={size}
+                />
             </div>
             <div className="button-area">
                 <PlusButton id={props.index + 'plus'} onClick={addPattern} number={patterns[patterns.length - 1]} />

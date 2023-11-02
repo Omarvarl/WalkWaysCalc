@@ -261,6 +261,7 @@ function Card(props) {
                             onChange={(event => setParam(event, 'type'))}
                             defaultValue={card.type}
                             options={['Мосток', 'Стремянка']}
+                            style={{marginBottom: '10px'}}
                         />
 
                         <Dropdown

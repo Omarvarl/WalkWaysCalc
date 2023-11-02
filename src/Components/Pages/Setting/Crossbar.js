@@ -14,7 +14,7 @@ function Crossbar(props) {
     return (
         <div className="crossbar">
             <div className="crossbar-type">
-                <div className="crossbar-type-label">Тип поперечины</div>
+                <label className="crossbar-type-label">Тип поперечины</label>
                 <Dropdown
                     title='Тип поперечины'
                     onChange={setCrossbarType}
@@ -23,17 +23,16 @@ function Crossbar(props) {
                 />
             </div>
             <div className="crossbar-quantity">
-            <div className="crossbar-quantity-label">Количество поперечин</div>
-            <input
-                
-                type="number"
-                min={1}
-                max={5}
-                step={1}
-                className="crossbar-quantuty-input"
-                onChange={setCrossbarQuantity}
-                defaultValue={props.defaultQuantity}
-            />
+                <label className="crossbar-quantity-label">Количество поперечин</label>
+                <input
+                    type="number"
+                    min={1}
+                    max={5}
+                    step={1}
+                    className="crossbar-quantuty-input"
+                    onChange={setCrossbarQuantity}
+                    defaultValue={props.defaultQuantity}
+                />
             </div>
         </div>
     )

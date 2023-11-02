@@ -110,7 +110,7 @@ const setToastData = useCallback((data) => {
         <Route path="/" element={<Layout downloadBtnStatus={downloadBtnStatus} data={data} size={size} />}>
             <Route index element={<HomePage disableBtnStatus={disableDownloadBtn} size={size} />} />
             <Route path= "setting" element={<SettingPage disableBtnStatus={disableDownloadBtn} setToast={setToastData} size={size} />} />
-            <Route path= "cards" element={<CardPage disableBtnStatus={disableDownloadBtn} setToast={setToastData} />} />
+            <Route path= "cards" element={<CardPage disableBtnStatus={disableDownloadBtn} setToast={setToastData} size={size} />} />
             <Route path= "result" element={<ResultPage activateDownloadBtn={activateDownloadBtn} setToast={setToastData} />} />
         </Route>
       </Routes>

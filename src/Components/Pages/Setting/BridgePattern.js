@@ -167,6 +167,7 @@ function BridgePattern(props) {
                                 options={['Профиль 40x40x3', 'Профиль 32x32x3', 'Трубка круглая d32']}
                                 setCrossbarQuantity={(event) => setParam(event, 'crossbarQuantity')}
                                 defaultQuantity={pattern.crossbarQuantity}
+                                size={props.size}
                             />)
 
         } else if (pattern.fillingType === 'Трехбалка') {
@@ -175,28 +176,56 @@ function BridgePattern(props) {
                                 setFillingBeamType={(event) => setParam(event, 'fillingBeamType')}
                                 fillingOptions={['Профиль 32x32x3', 'Трубка круглая d32']}
                                 defaultFillingBeam={pattern.fillingBeam}
+                                size={props.size}
                             />)
         }
     }
 
     if (!fillingConfig) openFillingConfig()
 
-    const divBlock = useRef(null)
-    let drawing = DrawingChose({
-        railType: railType,
-        standType: standType,
-        beamType: beamType,
-        frameCrossbarType: frameCrossbarType,
-        crossbarType: crossbarType,
-        crossbarQuantity: crossbarQuantity,
-        fillingType: filling
-    })
-
     let dis = (sessionStorage.getItem('bridgeInitialPatterns').split(',').length > 1) ? false : true
+
+    let drawing = ''
+    let styles = {}
+    let labelStyles = {}
+    const size = props.size
+    const deleteBtn = [
+        <button
+            className='remove-pattern'
+            onClick={removePattern}
+            title='Удалить шаблон'
+            disabled={dis}>
+            <FiTrash2 />
+        </button>, ''
+    ]
+    const drawingWidth = {width: '50%'}
+
+    if (size === 'normal') {
+        drawing = DrawingChose({
+            railType: railType,
+            standType: standType,
+            beamType: beamType,
+            frameCrossbarType: frameCrossbarType,
+            crossbarType: crossbarType,
+            crossbarQuantity: crossbarQuantity,
+            fillingType: filling
+        })
+    } else {
+        styles.width = '100%'
+        labelStyles.flexDirection = 'column'
+        deleteBtn.reverse()
+        drawingWidth.width = '0%'
+    }
+
+
 
     return (
         <div className="pattern">
-            <div className="pattern-config">
+            <div className="pattern-config" style={styles}>
+                <div className="remove-area">
+                    {deleteBtn[1]}
+                </div>
+
                 <input
                     type="text"
                     className="pattern-name"
@@ -207,36 +236,36 @@ function BridgePattern(props) {
 
                 <div className="section-PO">
 
-                    <div className="section-label">Перильное ограждение</div>
+                    <label className="section-label">Перильное ограждение</label>
 
-                    <div className="rail-type">
-                        <div className="rail-type-label">Тип перил</div>
-                        <Dropdown
-                            title='Тип перил'
-                            onChange={(event) => setParam(event, 'railType')}
-                            defaultValue={pattern.railType}
-                            options={['Швеллер 62x30x5', 'Профиль 88x58x5']}
-                        />
+                    <div className="rail-type" style={labelStyles}>
+                        <label className="rail-type-label">Тип перил</label>
+                            <Dropdown
+                                title='Тип перил'
+                                onChange={(event) => setParam(event, 'railType')}
+                                defaultValue={pattern.railType}
+                                options={['Швеллер 62x30x5', 'Профиль 88x58x5']}
+                            />
                     </div>
 
-                    <div className="stand-type">
-                        <div className="stand-type-label">Тип стойки</div>
-                        <Dropdown
-                            title='Тип стойки'
-                            onChange={(event) => setParam(event, 'standType')}
-                            defaultValue={pattern.standType}
-                            options={['Профиль 88x58x5', 'Профиль 50x50x6']}
-                        />
+                    <div className="stand-type" style={labelStyles}>
+                        <label className="stand-type-label">Тип стойки</label>
+                            <Dropdown
+                                title='Тип стойки'
+                                onChange={(event) => setParam(event, 'standType')}
+                                defaultValue={pattern.standType}
+                                options={['Профиль 88x58x5', 'Профиль 50x50x6']}
+                            />
                     </div>
 
-                    <div className="filling-type">
-                        <div className="filling-type-label">Тип заполнения</div>
-                        <Dropdown
-                            title='Тип заполнения'
-                            onChange={(event) => setParam(event, 'fillingType')}
-                            defaultValue={pattern.fillingType}
-                            options={['Поперечина', 'Трехбалка']}
-                        />
+                    <div className="filling-type" style={labelStyles}>
+                        <label className="filling-type-label">Тип заполнения</label>
+                            <Dropdown
+                                title='Тип заполнения'
+                                onChange={(event) => setParam(event, 'fillingType')}
+                                defaultValue={pattern.fillingType}
+                                options={['Поперечина', 'Трехбалка']}
+                            />
                     </div>
 
                     <div className="filling-config">
@@ -247,39 +276,37 @@ function BridgePattern(props) {
                 <div className="section-frame">
                     <div className="section-label">Каркас</div>
 
-                    <div className="beam-type">
-                        <div className="beam-type-label">Тип балки</div>
-                        <Dropdown
-                            title='Тип балки'
-                            onChange={(event) => setParam(event, 'beamType')}
-                            defaultValue={pattern.beamType}
-                            options={['Швеллер 150x50x6', 'Швеллер 180x70', 'Профиль 180x60x8']}
-                        />
+                    <div className="beam-type" style={labelStyles}>
+                        <label className="beam-type-label">Тип балки</label>
+                            <Dropdown
+                                title='Тип балки'
+                                onChange={(event) => setParam(event, 'beamType')}
+                                defaultValue={pattern.beamType}
+                                options={['Швеллер 150x50x6', 'Швеллер 180x70', 'Профиль 180x60x8']}
+                            />
                     </div>
 
-                    <div className="frame-crossbar-type">
-                        <div className="frame-crossbar-type-label">Тип поперечины</div>
-                        <Dropdown
-                            title='Тип поперечины'
-                            onChange={(event) => setParam(event, 'frameCrossbarType')}
-                            defaultValue={pattern.frameCrossbarType}
-                            options={['Швеллер 74x60x7', 'Профиль 88x58x5']}
-                        />
+                    <div className="frame-crossbar-type" style={labelStyles}>
+                        <label className="frame-crossbar-type-label">Тип поперечины</label>
+                            <Dropdown
+                                title='Тип поперечины'
+                                onChange={(event) => setParam(event, 'frameCrossbarType')}
+                                defaultValue={pattern.frameCrossbarType}
+                                options={['Швеллер 74x60x7', 'Профиль 88x58x5']}
+                            />
                     </div>
 
                 </div>
             </div>
 
-            <div className="pattern-drawing">
-                <div ref={divBlock} className="front-drawing">
+            <div className="pattern-drawing" style={drawingWidth}>
+                <div className="front-drawing">
                     {
                         drawing
                     }
                 </div> 
             </div>
-            <button className='remove-pattern' onClick={removePattern} title='Удалить шаблон' disabled={dis}>
-                <FiTrash2 />
-            </button>
+            {deleteBtn[0]}
         </div>
     )
 }

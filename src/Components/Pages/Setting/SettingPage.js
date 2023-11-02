@@ -38,6 +38,7 @@ function SettingPage(props) {
       initial='bridgeInitialPatterns'
       index='bp_'
       setToast={props.setToast}
+      size={props.size}
     />,
     <PatternsPage
       id='stairTab'
@@ -45,6 +46,7 @@ function SettingPage(props) {
       initial='stairInitialPatterns'
       index='sp_'
       setToast={props.setToast}
+      size={props.size}
     />]
 
   return (
