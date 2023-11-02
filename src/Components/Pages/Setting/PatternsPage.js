@@ -42,7 +42,9 @@ function PatternsPage(props) {
             <div className="patterns-area">
                 <Patterns patterns={patterns} addPattern={addPattern} removePattern={removePattern} index={props.index} pattern={pattern} setToast={props.setToast}></Patterns>
             </div>
-            <PlusButton id={props.index + 'plus'} onClick={addPattern} number={patterns[patterns.length - 1]} />
+            <div className="button-area">
+                <PlusButton id={props.index + 'plus'} onClick={addPattern} number={patterns[patterns.length - 1]} />
+            </div>
         </div>
     )
 }

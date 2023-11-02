@@ -1,11 +1,15 @@
 .patterns-page {
     display: flex;
-    width: 100%;
+    width: 90%;
     height: 100%;
-    padding-right: 80px;
+    /* padding-right: 5%; */
 }
 
 .patterns-area {
     width: 100%;
     padding: 10px;
+}
+
+.button-area {
+    width: 10%;
 }
