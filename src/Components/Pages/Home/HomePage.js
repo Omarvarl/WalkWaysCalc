@@ -81,8 +81,6 @@ let clues = <div className="home-page">
             { arrowDown }
             { cardClue }
             { arrowDown }
-            { cardClue }
-            { arrowDown }
             { resultClue }
             { buttonsClue }
             { downloadClue }
