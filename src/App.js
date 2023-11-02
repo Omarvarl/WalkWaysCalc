@@ -1,6 +1,6 @@
 import './App.css';
 import {Routes, Route} from "react-router-dom";
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import Layout from './Components/Layout'
 import CardPage from './Components/Pages/Cards/CardsPage';
@@ -9,7 +9,21 @@ import ResultPage from './Components/Pages/Result/ResultPage';
 import HomePage from './Components/Pages/Home/HomePage';
 import Toast from './Components/Toast';
 
-function App() { 
+
+
+function App() {
+  const initSize = window.innerWidth >= 768 ? 'normal' : 'small'
+  const [size, setSize] = useState(initSize)
+
+  window.addEventListener('resize',() => {
+    setTimeout(() => {
+      if (window.innerWidth < 768)
+        setSize('small')
+      if (window.innerWidth > 768 )
+        setSize('normal')
+    }, 100)
+    console.log(size)
+  }, false) 
 
   let initialCards = sessionStorage.getItem('initialCards')
   if (!initialCards) {
@@ -93,9 +107,9 @@ const setToastData = useCallback((data) => {
     <div className="screen">
 
       <Routes>
-        <Route path="/" element={<Layout downloadBtnStatus={downloadBtnStatus} data={data} />}>
-            <Route index element={<HomePage disableBtnStatus={disableDownloadBtn} />} />
-            <Route path= "setting" element={<SettingPage disableBtnStatus={disableDownloadBtn} setToast={setToastData} />} />
+        <Route path="/" element={<Layout downloadBtnStatus={downloadBtnStatus} data={data} size={size} />}>
+            <Route index element={<HomePage disableBtnStatus={disableDownloadBtn} size={size} />} />
+            <Route path= "setting" element={<SettingPage disableBtnStatus={disableDownloadBtn} setToast={setToastData} size={size} />} />
             <Route path= "cards" element={<CardPage disableBtnStatus={disableDownloadBtn} setToast={setToastData} />} />
             <Route path= "result" element={<ResultPage activateDownloadBtn={activateDownloadBtn} setToast={setToastData} />} />
         </Route>

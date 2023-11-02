@@ -6,6 +6,7 @@
     width: 100%;
     background-color: rgb(97, 96, 96);;
     color: white;
+    overflow: auto;
 }
 
 .clues {
@@ -15,8 +16,23 @@
     height: 25%;
 }
 
+.clues-small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1%;
+
+}
+
+
 .arrow {
     margin: 20px;
+    font-size: 30pt;
+}
+
+.arrow-down {
+    margin: 5px;
     font-size: 30pt;
 }
 
