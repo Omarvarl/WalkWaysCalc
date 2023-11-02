@@ -464,9 +464,9 @@
                 materialSpec.fData.fillingBeam = {
                     length: 800 / 1e3,
                     quantity: Math.ceil(materialSpec.fData.crossbar.length / 0.182) / 2,
-                    type: pattern.fillingBeamType,
+                    type: 'Трубка круглая d32',
                     unit: 'м/пог',
-                    mass: massDefine(pattern.fillingBeamType, 800 / 1e3)
+                    mass: massDefine('Трубка круглая d32', 150 / 1e3)
                 }
  
             }

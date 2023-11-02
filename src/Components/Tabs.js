@@ -62,8 +62,7 @@ function Tabs(props) {
                             let active = ''
                             let uncorrectCard = ''
                             if (item.id === props.activeTab) active = 'active-tab'
-                            if (props.uncorrectCards && props.uncorrectCards.includes(item.name)) uncorrectCard = 'uncorrect-tab'
-                            // index++
+                            if (props.uncorrectCards && props.uncorrectCards.includes(item.name)) uncorrectCard = 'uncorrect-tab'  
                             return <div
                                 title={item.name}
                                 className={`tabs-item ${active} ${uncorrectCard}`}

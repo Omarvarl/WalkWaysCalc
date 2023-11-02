@@ -54,6 +54,8 @@ function Table(props) {
 
     makeDataObject(cParams, cData)
 
+    // console.log(fData)
+
 
     return (
         <div className="bridge-table">

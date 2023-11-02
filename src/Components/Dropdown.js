@@ -3,6 +3,7 @@ import './Dropdown.css'
 function Dropdown(props) {
     return (
         <select
+            style={props.style}
             className="dropdown"
             title={props.title}
             defaultValue={props.defaultValue}

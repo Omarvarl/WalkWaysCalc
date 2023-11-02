@@ -48,7 +48,7 @@ function ResultPage(props) {
     let count = 0
     const newComponents = Object.keys(data).map(card => {
         count++
-        return createElement('div', {className: card, id:`t_${count - 1}`}, <Table data={data[card]} cardName={card}/>)
+        return createElement('div', {className: card, id:`t_${count - 1}`, key:`t_${count - 1}`}, <Table data={data[card]} cardName={card}/>)
     })
 
     const activateBtn = useMemo( () => {
@@ -73,20 +73,14 @@ function ResultPage(props) {
 
     };
 
-    // const tabsId = initialCards.map(elm => 't_' + elm)
-    // tabsId.push(`t_${Number(initialCards[initialCards.length - 1]) + 1}`)
-
     const tabs = cardsName.map((elm, index) => {
         return {name: elm, id: 't_' + index}
     })
-    // console.log(tabs)
-
 
     return (
         <div className='result-page'>
             <Tabs
                 onClick={handleBasicClick}
-                // ids={tabsId}
                 items={tabs}
                 activeTab={activeTab}
                 pages={newComponents}

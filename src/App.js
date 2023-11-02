@@ -19,10 +19,10 @@ function App() {
     setTimeout(() => {
       if (window.innerWidth < 768)
         setSize('small')
-      if (window.innerWidth > 768 )
+      if (window.innerWidth >= 768 )
         setSize('normal')
     }, 100)
-    console.log(size)
+    // console.log(size)
   }, false) 
 
   let initialCards = sessionStorage.getItem('initialCards')

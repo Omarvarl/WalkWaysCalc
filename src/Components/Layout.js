@@ -10,7 +10,7 @@ function Layout(props) {
     return (
         <div className="layout">
 
-            <Header />
+            <Header size={props.size}/>
 
             <main className="main-area">
                 <ButtonPanel downloadBtnStatus={props.downloadBtnStatus} data={props.data} />

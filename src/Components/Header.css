@@ -35,3 +35,11 @@
 .active {
     color: white;
 }
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    background-color: #212421;
+    position: absolute;
+    z-index: 1;
+}
