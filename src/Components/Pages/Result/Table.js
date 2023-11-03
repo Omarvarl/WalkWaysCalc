@@ -13,10 +13,9 @@ function Table(props) {
     const cData = {}
     
     const makeDataObject = (params, data) => {
- 
+
         let count = 1
         Object.keys(params).forEach(elm => {
-
             if(data[params[elm].type]) {
                 if (props.cardName !== 'Сводная') {
                     data[params[elm].type].quantity = (Number(data[params[elm].type].quantity) + Number(params[elm].length * params[elm].quantity)).toFixed(3)
@@ -53,8 +52,6 @@ function Table(props) {
     makeDataObject(jParams, jData)
 
     makeDataObject(cParams, cData)
-
-    // console.log(fData)
 
 
     return (

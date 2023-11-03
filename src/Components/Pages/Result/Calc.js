@@ -241,7 +241,7 @@
 
             materialSpec.jData.standBolt = {
                 length: 1,
-                type: 'Болт M12x85',
+                type: 'Болт M12x90',
                 quantity: (materialSpec.fData.stand.quantity - 2) * 2,
                 unit: 'шт',
                 mass: 1 / 11
@@ -495,7 +495,7 @@
 
             if (elm.length < 1100) elm.length = 0
 
-            materialSpec.fData.beam = {
+            materialSpec.fData.stairBeam = {
                 length: elm.length / 1e3,
                 quantity: 2,
                 type: pattern.stairBeamType,
